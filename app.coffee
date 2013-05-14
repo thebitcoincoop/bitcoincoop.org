@@ -1,12 +1,6 @@
 express = require('express')
 path = require('path')
 engines = require('consolidate')
-passport = require('./passport')
-
-calculator = require("./routes/calculator")
-sessions = require("./routes/sessions")(passport)
-transactions = require("./routes/transactions")
-users = require("./routes/users")(sessions)
 
 app = express()
 app.enable('trust proxy')
@@ -17,7 +11,6 @@ app.use(express.static(__dirname + '/public'))
 app.use(require('connect-assets')(src: 'public'))
 app.use(express.bodyParser())
 app.use(express.cookieParser())
-app.use(passport.initialize())
 app.use(app.router)
 
 routes =
