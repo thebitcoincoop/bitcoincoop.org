@@ -21,13 +21,13 @@ app.use(passport.initialize())
 app.use(app.router)
 
 routes =
-  "/": 'main/index'
-  "/about": 'main/about'
-  "/exchangers": 'main/exchangers'
-  "/exchangers/join": 'main/join'
-  "/merchants": 'main/merchants'
-  "/merchants/signup": 'main/signup'
-  "/contact": 'main/contact'
+  "/": 'index'
+  "/about": 'about'
+  "/exchangers": 'exchangers'
+  "/exchangers/join": 'join'
+  "/merchants": 'merchants'
+  "/merchants/signup": 'signup'
+  "/contact": 'contact'
 
 for route, view of routes
   ((route, view) ->
