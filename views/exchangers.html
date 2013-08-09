@@ -3,47 +3,180 @@
     <div class="span6">
       <h1>Exchange</h1>
       <p>
-       Our goal is to establish a network of trusted individuals who can provide a consistent experience and reliable price for people wanting to trade bitcoins.
+      Our goal is to establish a grassroots network of trusted individuals who we've met personally and trained to provide a consistent experience and fair price.  These people can meet you locally or deal with you online to help your buy or sell bitcoins quickly without having to go through an online exchange.
       </p>
-      
-      <p><a class="icon-phone btn" href="tel:+16049018399"> Call Us! +1 604-901-8399</a> <a class="btn" href="/exchangers/join">Join Us!</a></p>
+
+      <form action="/contact" class="well">
+        <h2>Order Online</h2>
+        <p>  Place your order using the form below or call us at <a href="tel:+16049018399">+1 604-901-8399</a> and we'll get in touch with you within 24 hours to setup a meeting.</p>
+
+        <div class="pull-left" style="padding-right: 20px">
+          <label for="type"><strong>Order</strong></label>
+          <select id="type" name="type" style="width: 80px">
+            <option>Buy</option>
+            <option>Sell</option>
+          </select>
+        </div>
+
+        <div class="pull-left" style="padding-right: 20px">
+          <label for="amount"><strong>Amount</strong></label>
+          <input type="text" id="amount" name="amount" style="width: 50px" />
+        </div>
+
+        <div>
+          <label for="currency"><strong>Currency</strong></label>
+          <select id="currency" name="currency" style="width: 80px">
+            <option>BTC</option>
+            <option>CAD</option>
+          </select>
+        </div>
+
+        <label for="notes"><strong>Notes</strong> <small>(Preferred location, time, familiarity with bitcoin)</label>
+        <textarea id="notes" name="notes" style="width: 400px; height: 100px;"></textarea>
+
+        <br />
+        <input type="submit" value="Place Order" />
+
+      </form>
     </div>
 
     <div class="span6 well">
-      <h1>Meeting Procedure</h1>
+      <h2>Rates</h2>
+
+      <p>Our rates are posted in the top right corner of this website.  We peg our rates to the order book at <a href="http://cavirtex.com/">cavirtex.com</a> plus 5%</p>
+
+      <h2>Meeting Procedure</h2>
       <ul style="list-style: none; margin: 0;">
-        <li><i class="icon-caret-right"></i> Contact one of us to let us know your availability</li>
-        <li><i class="icon-caret-right"></i> Tell us how much you want to buy or sell</li>
         <li><i class="icon-caret-right"></i> We'll arrange a time to meet at a public place</li>
-        <li><i class="icon-caret-right"></i> We'll look up the exchange rate at the time of meeting</li>
-        <li><i class="icon-caret-right"></i> We'll send bitcoins to your address using our phone or laptop or you'll send to us</li>
-        <li><i class="icon-caret-right"></i> We'll confirm the transaction online at blockchain.info</li>
+        <li><i class="icon-caret-right"></i> We'll look up the exchange rate at this site at the time of meeting</li>
+        <li><i class="icon-caret-right"></i> We'll count out the cash together and do the exchange</li>
+        <li><i class="icon-caret-right"></i> We'll confirm the transaction online at <a href="http://blockchain.info/">blockchain.info</a></li>
       </ul>
     </div>
   </div>
 
-    <div class="masonry js-masonry"  data-masonry-options='{ "columnWidth": 550 }'>
-      <div class="item">
-        <h2>Adam</h2>
-        <a href="https://localbitcoins.com/accounts/profile/asoltys/"><img src="img/adam.jpg" alt="Adam" /></a>
-        <table>
-          <tr>
-            <td><b>Neighbourhood:</b></td>
-            <td>Hastings/Sunrise</td>
-          </tr>
-        </table>
-      </div>
+  <h2>Exchangers</h2>
 
-      <div class="item">
-        <h2>Yuri</h2>
-        <a class="img" href="https://localbitcoins.com/accounts/profile/beeteecee/"><img src="img/yuri.jpg" alt="Yuri" /></a>
-        <table>
-          <tr>
-            <td><b>Neighbourhood:</b></td>
-            <td>West End</td>
-          </tr>
-          </tr>
-        </table>
-      </div>
+  <div class="masonry js-masonry"  data-masonry-options='{ "columnWidth": 550 }'>
+    <div class="item">
+      <h2>Adam</h2>
+      <a href="https://localbitcoins.com/accounts/profile/asoltys/"><img src="img/adam.jpg" alt="Adam" /></a>
+      <table>
+        <tr>
+          <td><b>Neighbourhood:</b></td>
+          <td>Hastings/Sunrise</td>
+        </tr>
+        <tr>
+          <td><b>Hours:</b></td>
+          <td>10am-10pm Mon-Sun</td>
+        </tr>
+        <tr>
+          <td><b>LocalBitcoins:</b></td>
+          <td colspan="2"><a href="https://localbitcoins.com/accounts/profile/asoltys/">asoltys</a></td>
+        </tr>
+        <tr>
+          <td><b>Bitcoin-otc:</b></td>
+          <td colspan="2"><a href="http://bitcoin-otc.com/viewratingdetail.php?nick=stretchwarren&sign=ANY&type=RECV">asoltys</a></td>
+        </tr>
+      </table>
     </div>
+
+    <!--
+    <div class="item">
+      <h2>Jackson</h2>
+      <a class="img" href="https://localbitcoins.com/accounts/profile/stretchwynand/"><img src="img/jackson.jpg" alt="Louis" /></a>
+      <table>
+        <tr>
+          <td><b>Neighbourhood:</b></td>
+          <td>West End</td>
+        </tr>
+        <tr>
+          <td><b>Hours:</b></td>
+          <td>10am-10pm Mon-Sun</td>
+        </tr>
+        <tr>
+          <td><b>LocalBitcoins:</b></td>
+          <td colspan="2"><a href="https://localbitcoins.com/accounts/profile/stretchwynand/">stretchwynand</a></td>
+        </tr>
+        <tr>
+          <td><b>Bitcoin-otc:</b></td>
+          <td colspan="2"><a href="http://bitcoin-otc.com/viewratingdetail.php?nick=stretchwarren&sign=ANY&type=RECV">stretchwarren</a></td>
+        </tr>
+      </table>
+    </div>
+    -->
+    
+    <div class="item">
+      <h2>Louis</h2>
+      <a class="img" href="https://localbitcoins.com/accounts/profile/cashforbtc/"><img src="img/louis.jpg" alt="Louis" /></a>
+      <table>
+        <tr>
+          <td><b>Neighbourhood:</b></td>
+          <td>Mount Pleasant</td>
+        </tr>
+        <tr>
+          <td><b>Hours:</b></td>
+          <td>10am-10pm Mon-Sun</td>
+        </tr>
+        <tr>
+          <td><b>LocalBitcoins:</b></td>
+          <td colspan="2"><a href="https://localbitcoins.com/accounts/profile/cashforbtc/">cashforbtc</a></td>
+        </tr>
+        <tr>
+          <td><b>Bitcoin-otc:</b></td>
+          <td colspan="2"><a href="http://bitcoin-otc.com/viewratingdetail.php?nick=louong&sign=ANY&type=RECV">louong</a></td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="item">
+      <h2>Moe</h2>
+      <a class="img" href="https://localbitcoins.com/accounts/profile/moebitcoin/"><img src="img/moe.png" alt="Moe" /></a>
+      <table>
+        <tr>
+          <td><b>Neighbourhood:</b></td>
+          <td>West End</td>
+        </tr>
+        <tr>
+          <td><b>Hours:</b></td>
+          <td>Evenings and Weekends</td>
+        </tr>
+        <tr>
+          <td><b>LocalBitcoins:</b></td>
+          <td colspan="2"><a href="https://localbitcoins.com/accounts/profile/moebitcoin/">moebitcoin</a></td>
+        </tr>
+      </table>
+    </div>
+
+
+    <div class="item">
+      <h2>Yuri</h2>
+      <a class="img" href="https://localbitcoins.com/accounts/profile/beeteecee/"><img src="img/yuri.jpg" alt="Yuri" /></a>
+      <table>
+        <tr>
+          <td><b>Neighbourhood:</b></td>
+          <td>West End</td>
+        </tr>
+        <tr>
+          <td><b>Hours:</b></td>
+          <td>10am-10pm Mon-Sun</td>
+        </tr>
+        <tr>
+          <td><b>LocalBitcoins:</b></td>
+          <td colspan="2"><a href="https://localbitcoins.com/accounts/profile/beeteecee/">beeteecee</a></td>
+        </tr>
+        <tr>
+          <td><b>Bitcoin-otc:</b></td>
+          <td colspan="2"><a href="http://bitcoin-otc.com/viewratingdetail.php?nick=beeteecee&sign=ANY&type=RECV">beeteecee</a></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <h2>The Bitcoin Store</h2>
+
+  <a href="http://bitcoiniacs.com/"><img src="img/bitcoiniacs.png" class="pull-left" style="padding-right: 20px" /></a>
+  <p class="clearfix">
+  Our friends the Bitcoiniacs opened The Bitcoin Store in Vancouver in June 2013.  The store is located at 129 - 1628 W 1st Ave and is a great location to meet to conduct transactions, purchase bitcoin merchandise and meet people who are enthusiastic and knowledgeable about the technology.  Visit <a href="http://bitcoiniacs.com/">their website</a> to book an appointment today!
+  </p>
 </div>
