@@ -3,47 +3,14 @@
     <div class="span6">
       <h1>Exchange</h1>
       <p>
-      Our goal is to establish a grassroots network of trusted individuals who we've met personally and trained to provide a consistent experience and fair price.  These people can meet you locally or deal with you online to help your buy or sell bitcoins quickly without having to go through an online exchange.
+      Our goal is to establish a grassroots network of trusted individuals who we've met personally and trained to provide a consistent experience and price.  These people can meet you locally or deal with you online to help your buy or sell bitcoins quickly and painlessly without having to go through an online exchange.
       </p>
-
-      <form action="/contact" class="well">
-        <h2>Order Online</h2>
-        <p>  Place your order using the form below or call us at <a href="tel:+16049018399">+1 604-901-8399</a> and we'll get in touch with you within 24 hours to setup a meeting.</p>
-
-        <div class="pull-left" style="padding-right: 20px">
-          <label for="type"><strong>Order</strong></label>
-          <select id="type" name="type" style="width: 80px">
-            <option>Buy</option>
-            <option>Sell</option>
-          </select>
-        </div>
-
-        <div class="pull-left" style="padding-right: 20px">
-          <label for="amount"><strong>Amount</strong></label>
-          <input type="text" id="amount" name="amount" style="width: 50px" />
-        </div>
-
-        <div>
-          <label for="currency"><strong>Currency</strong></label>
-          <select id="currency" name="currency" style="width: 80px">
-            <option>BTC</option>
-            <option>CAD</option>
-          </select>
-        </div>
-
-        <label for="notes"><strong>Notes</strong> <small>(Preferred location, time, familiarity with bitcoin)</label>
-        <textarea id="notes" name="notes" style="width: 400px; height: 100px;"></textarea>
-
-        <br />
-        <input type="submit" value="Place Order" />
-
-      </form>
     </div>
 
     <div class="span6 well">
       <h2>Rates</h2>
 
-      <p>Our rates are posted in the top right corner of this website.  We peg our rates to the order book at <a href="http://cavirtex.com/">cavirtex.com</a> plus 5%</p>
+      <p>Our rates are posted in the top right corner of this website.  We peg to the order book at <a href="http://cavirtex.com/">cavirtex.com</a> plus 5%</p>
 
       <h2>Meeting Procedure</h2>
       <ul style="list-style: none; margin: 0;">
@@ -173,10 +140,49 @@
     </div>
   </div>
 
+  <div class="row-fluid">
+    <form action="/contact" method="post" class="well">
+      <h2>Order Online</h2>
+      <p>  Place your order using the form below or call us at <a href="tel:+16049018399">+1 604-901-8399</a> and we'll get in touch with you within 24 hours to setup a meeting.</p>
+
+      <div>
+        <label for="email"><strong>Email</strong></label>
+        <input type="text" id="email" name="email" style="width: 150px" />
+      </div>
+
+      <div class="pull-left" style="padding-right: 20px">
+        <label for="type"><strong>Order</strong></label>
+        <select id="type" name="type" style="width: 80px">
+          <option>Buy</option>
+          <option>Sell</option>
+        </select>
+      </div>
+
+      <div class="pull-left" style="padding-right: 20px">
+        <label for="amount"><strong>Amount</strong></label>
+        <input type="text" id="amount" name="amount" style="width: 50px" />
+      </div>
+
+      <div>
+        <label for="currency"><strong>Currency</strong></label>
+        <select id="currency" name="currency" style="width: 80px">
+          <option>BTC</option>
+          <option>CAD</option>
+        </select>
+      </div>
+
+      <label for="notes"><strong>Notes</strong> <small>(Preferred meeting time and location, familiarity with bitcoin, favourite colour, etc.)</small></label>
+      <textarea id="notes" name="notes" style="width: 400px; height: 100px;"></textarea>
+
+      <br />
+      <input type="submit" value="Place Order" />
+    </form>
+  </div>
+
   <h2>The Bitcoin Store</h2>
 
   <a href="http://bitcoiniacs.com/"><img src="img/bitcoiniacs.png" class="pull-left" style="padding-right: 20px" /></a>
   <p class="clearfix">
-  Our friends the Bitcoiniacs opened The Bitcoin Store in Vancouver in June 2013.  The store is located at 129 - 1628 W 1st Ave and is a great location to meet to conduct transactions, purchase bitcoin merchandise and meet people who are enthusiastic and knowledgeable about the technology.  Visit <a href="http://bitcoiniacs.com/">their website</a> to book an appointment today!
+  Our friends the Bitcoiniacs opened The Bitcoin Store in Vancouver at 129 - 1628 W 1st Ave.  It's a great location to conduct exchanges, purchase bitcoin merchandise and meet people who are enthusiastic and knowledgeable about the technology.  Visit <a href="http://bitcoiniacs.com/">their website</a> to book an appointment today!
   </p>
 </div>

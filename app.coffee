@@ -33,6 +33,33 @@ for route, view of routes
     )
   )(route, view) 
 
+app.post('/contact', (req, res) ->
+  nodemailer = require("nodemailer")
+  smtpTransport = nodemailer.createTransport("SMTP",
+    service: "Gmail",
+    auth:
+      user: require('./config').user
+      pass: require('./config').pass
+  )
+
+  mailOptions = 
+    from: "Adam Soltys <asoltys@gmail.com>",
+    to: "asoltys@gmail.com",
+    subject: "Bitcoin Co-op Exchange",
+    html: JSON.stringify(req.body)
+
+  smtpTransport.sendMail(mailOptions, (error, response) ->
+    console.log(error) if(error)
+    smtpTransport.close()
+  )
+
+  res.render('thanks', 
+    js: (-> global.js), 
+    css: (-> global.css),
+    layout: 'layout'
+  )
+)
+
 app.use((err, req, res, next) ->
   res.status(500)
   console.log(err)
