@@ -1,5 +1,5 @@
 $(->
-  $.getJSON('http://pos.bitcoincoop.org/ticker',
+  $.getJSON('/ticker',
     symbol: 'virtexCAD',
     type: 'ask',
     amount: 1000
@@ -8,7 +8,7 @@ $(->
       $('#ask').text(price.toFixed(2)) 
   )
 
-  $.getJSON('http://pos.bitcoincoop.org/ticker',
+  $.getJSON('/ticker',
     symbol: 'virtexCAD',
     type: 'bid',
     amount: 1000

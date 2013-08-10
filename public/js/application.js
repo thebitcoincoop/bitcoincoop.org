@@ -2,7 +2,7 @@
 (function() {
 
   $(function() {
-    $.getJSON('http://pos.bitcoincoop.org/ticker', {
+    $.getJSON('/ticker', {
       symbol: 'virtexCAD',
       type: 'ask',
       amount: 1000
@@ -11,7 +11,7 @@
       price = parseFloat(data) * 1.05;
       return $('#ask').text(price.toFixed(2));
     });
-    return $.getJSON('http://pos.bitcoincoop.org/ticker', {
+    return $.getJSON('/ticker', {
       symbol: 'virtexCAD',
       type: 'bid',
       amount: 1000
