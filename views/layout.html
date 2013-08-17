@@ -24,28 +24,37 @@
 
   </head>
   <body>
-    <div class="container">
-      <div class="navbar navbar-inverse navbar-static-top">
-        <div class="navbar-inner">
-            <a class="brand" href="/">The Bitcoin Co-op</a>
-            <ul class="nav">
-              <li><a href="/about">Info</a></li>
-              <li><a href="/exchangers">Exchange</a></li>
-              <li><a href="/merchants">Merchants</a></li>
-            </ul>
+    <div id="wrap">
+      <div id="main" class="container clear-top">
+        <div class="navbar navbar-inverse navbar-static-top">
+          <div class="navbar-inner">
+              <a class="brand" href="/">The Bitcoin Co-op</a>
+              <ul class="nav">
+                <li><a href="/about">Info</a></li>
+                <li><a href="/exchangers">Exchange</a></li>
+                <li><a href="/merchants">Merchants</a></li>
+              </ul>
 
             <div class="pull-right">
-              <a class="brand" href="tel:+16049018399"><i class="icon-phone">+1 604-901-8399</i></a>
-              <a class="brand" href="http://twitter.com/thebitcoincoop"><i class="icon-twitter icon-4x"></i></a>
-              <a class="brand" href="http://facebook.com/bitcoincoop"><i class="icon-facebook icon-large"></i></a>
-              <a class="brand" href="mailto:admin@bitcoincoop.org"><i class="icon-envelope"></i></a>
               <span class="brand">
                 Buy: <span id="ask">00.00</span> | Sell: <span id="bid">00.00</span>
               </span>
             </div>
+          </div>
         </div>
+        {{>content}}
       </div>
-      {{>content}}
+    </div>
+    <div class="container">
+    <footer class="footer navbar navbar-inverse brand">
+      <div class="pull-left">
+        <a class="brand" href="tel:+16049018399"><i class="icon-phone">+1 604-901-8399</i></a>
+        <a class="brand" href="http://twitter.com/thebitcoincoop"><i class="icon-twitter icon-4x"></i></a>
+        <a class="brand" href="http://facebook.com/bitcoincoop"><i class="icon-facebook icon-large"></i></a>
+        <a class="brand" href="mailto:admin@bitcoincoop.org"><i class="icon-envelope"></i></a>
+      </div>
+      <span class="pull-right">Hosting generously provided by <a href="http://bitcoinwebhosting.net/"><img src="/img/bitcoin_web_hosting.png" /></a></span>
+    </footer>
     </div>
   </body>
 </html> 

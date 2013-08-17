@@ -30,3 +30,24 @@ div.item h2 a { text-decoration: none; color: #000; }
 div.row-fluid td.first { text-align: right; }
 
 .heading .pull-right { margin-top: 10px; }
+
+html, body {
+  height: 100%;
+}
+
+#wrap {
+  min-height: 100%;
+}
+
+#main {
+  overflow:auto;
+  padding-bottom:40px; /* this needs to be bigger than footer height*/
+}
+
+.footer {
+  position: relative;
+  margin-top: -20px; /* negative value of footer height */
+  height: 40px;
+  clear:both;
+  padding: 20px;
+} 
