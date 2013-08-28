@@ -45,7 +45,7 @@ app.post('/contact', (req, res) ->
   mailOptions = 
     from: "Adam Soltys <asoltys@gmail.com>",
     to: "asoltys@gmail.com",
-    subject: "Bitcoin Co-op Exchange",
+    subject: "Bitcoin Co-op Contact Form",
     html: JSON.stringify(req.body)
 
   smtpTransport.sendMail(mailOptions, (error, response) ->
