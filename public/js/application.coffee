@@ -1,7 +1,7 @@
 $(->
   $.getJSON('/ticker',
     symbol: 'virtexCAD',
-    type: 'ask',
+    type: 'bid',
     amount: 1000
     (data) ->
       price = parseFloat(data) * 1.05 
@@ -10,7 +10,7 @@ $(->
 
   $.getJSON('/ticker',
     symbol: 'virtexCAD',
-    type: 'bid',
+    type: 'ask',
     amount: 1000
     (data) ->
       price = parseFloat(data) * 0.95
