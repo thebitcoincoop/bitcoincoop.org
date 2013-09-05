@@ -35,20 +35,15 @@ for route, view of routes
 
 app.post('/contact', (req, res) ->
   nodemailer = require("nodemailer")
-  smtpTransport = nodemailer.createTransport("SMTP",
-    service: "Gmail",
-    auth:
-      user: require('./config').user
-      pass: require('./config').pass
-  )
+  transport = nodemailer.createTransport("Sendmail", "/usr/sbin/sendmail")
 
   mailOptions = 
-    from: "Adam Soltys <asoltys@gmail.com>",
-    to: "asoltys@gmail.com",
-    subject: "Bitcoin Co-op Contact Form",
+    from: "The Bitcoin Co-op <info@bitcoincoop.org>",
+    to: "info@bitcoincoop.org",
+    subject: "Contact Form",
     html: JSON.stringify(req.body)
 
-  smtpTransport.sendMail(mailOptions, (error, response) ->
+  transport.sendMail(mailOptions, (error, response) ->
     console.log(error) if(error)
     smtpTransport.close()
   )
