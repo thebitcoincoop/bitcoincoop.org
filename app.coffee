@@ -2,6 +2,8 @@ express = require('express')
 path = require('path')
 engines = require('consolidate')
 
+merchants = require("./routes/merchants")
+
 app = express()
 app.enable('trust proxy')
 app.engine('html', require('mmm').__express)
@@ -32,6 +34,10 @@ for route, view of routes
       )
     )
   )(route, view) 
+
+
+app.get('/merchants2', merchants.list)
+
 
 app.post('/contact', (req, res) ->
   nodemailer = require("nodemailer")

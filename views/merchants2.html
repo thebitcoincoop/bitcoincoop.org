@@ -1,0 +1,59 @@
+<script>
+var map;
+var geocoder;
+
+function initialize() {
+  geocoder = new google.maps.Geocoder();
+  var mapOptions = {
+    zoom: 13,
+    center: new google.maps.LatLng(49.2847451,-123.1201222),
+    mapTypeId: google.maps.MapTypeId.ROADMAP
+  };
+  map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+}
+function findAddress(address) {
+ 	 geocoder.geocode( { 'address': address}, function(results, status) {
+	    if (status == google.maps.GeocoderStatus.OK) {
+	      map.setCenter(results[0].geometry.location);
+	      var marker = new google.maps.Marker({
+	          map: map,
+	          position: results[0].geometry.location
+	      });
+	    } else {
+	      alert('Sorry, couldn\'t find on map!');
+	    }
+	  });
+}
+function updateList(type) {
+	$( "[class^=type-]" ).hide();
+	if (type.length>0)
+		$( ".type-"+type ).show();
+	else
+		$( "[class^=type-]" ).show();
+}
+
+google.maps.event.addDomListener(window, 'load', initialize);
+
+</script>
+<br/><br/>
+<h1>Browse Merchants</h1>
+<br/><br/>
+
+<div id="mapcontainer">
+	<div id="merchlist">
+		<label for="mtype">Type:</label>
+		<select id="merchtype" name="merchtype" onChange="updateList(this.value)">
+			<option value="">All</option>
+			<option value="rest">Restaurant/Bar</option>
+			<option value="coff">Coffee Shop</option>
+		</select>
+		<br/>
+		(Click on name to locate)
+		<ul>
+		{{#userlist}}
+		<li class="type-{{companytype}}"><a href="javascript:findAddress('{{address1}},{{address2}},{{city}},{{state}},{{postcode}},{{country}}')"><img src="{{logo}}" class="logoimg">{{company}}</a></li>
+		{{/userlist}}
+		</ul>
+	</div>
+	<div id="map-canvas"></div>
+</div>
