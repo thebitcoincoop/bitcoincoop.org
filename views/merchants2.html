@@ -57,14 +57,22 @@ google.maps.event.addDomListener(window, 'load', initialize);
 			<option value="coff">Coffee Shop</option>
 		</select>
 		<br/>
-		(Click on name to locate)
+		<i>(Click on name to locate)</i>
 		<ul>
 		{{#userlist}}
 		<li class="type-{{companytype}}" onClick="findAddress('{{company}},{{address1}},{{address2}},{{city}},{{state}},{{postcode}},{{country}}')">
 			<div class="logoimg"><img src="{{logo}}"></div>
 			<div class="merchinfo">		
 				{{company}}
-				<div class="merchaddress">{{address1}},{{address2}},{{city}}<br>{{#phone}}Tel: {{phone}} {{/phone}}<br><a href="mailto:{{email}}">{{email}}</a>{{#web}}<br><a href="http://{{web}}" target="_blank">{{web}}</a>{{/web}}</div>
+				<div class="merchaddress">
+					{{#address1}}{{address1}},{{/address1}}
+					{{#address2}}{{address2}},{{/address2}}
+					{{#city}}{{city}}{{/city}}
+					<br>
+					{{#phone}}Tel: {{phone}}<br>{{/phone}}
+					{{#email}}<a href="mailto:{{email}}">{{email}}</a>{{/email}}
+					{{#web}}<br><a href="http://{{web}}" target="_blank">{{web}}</a>{{/web}}
+				</div>
 			</div>
 		</li>
 		{{/userlist}}
