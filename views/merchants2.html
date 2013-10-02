@@ -64,7 +64,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
 			<div class="logoimg"><img src="{{logo}}"></div>
 			<div class="merchinfo">		
 				{{company}}
-				<div class="merchaddress">{{address1}},{{address2}},{{city}}<br>{{#phone}}Tel: {{phone}} {{/phone}}<br><a href="mailto:{{email}}">{{email}}</a></div>
+				<div class="merchaddress">{{address1}},{{address2}},{{city}}<br>{{#phone}}Tel: {{phone}} {{/phone}}<br><a href="mailto:{{email}}">{{email}}</a>{{#web}}<br><a href="http://{{web}}" target="_blank">{{web}}</a>{{/web}}</div>
 			</div>
 		</li>
 		{{/userlist}}
