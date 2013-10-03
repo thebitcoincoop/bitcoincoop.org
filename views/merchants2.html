@@ -53,8 +53,9 @@ google.maps.event.addDomListener(window, 'load', initialize);
 		<label for="mtype">Type:</label>
 		<select id="merchtype" name="merchtype" onChange="updateList(this.value)">
 			<option value="">All</option>
-			<option value="rest">Restaurant/Bar</option>
-			<option value="coff">Coffee Shop</option>
+        	{{#mtypes}}
+        	<option value="{{code}}">{{label}}</option>
+        	{{/mtypes}}
 		</select>
 		<br/>
 		<i>(Click on name to locate)</i>
