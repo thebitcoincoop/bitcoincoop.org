@@ -19,6 +19,7 @@ app.use(app.router)
 routes =
   "/": 'index'
   "/about": 'about'
+  "/education": 'education'
   "/exchangers": 'exchangers'
   "/exchangers/join": 'join'
   "/merchants": 'merchants'
