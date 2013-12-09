@@ -7,14 +7,15 @@ calculator = require("./routes/calculator")
 
 setRates = (req, res, next) ->
   usd_to_cad = require("./usd_cad.json").rate
+  commission = 1.05
 
   virtex_ask = require("./cad.json").cavirtex.rates.ask
   bitstamp_ask = require("./usd.json").bitstamp.rates.ask
   virtex_bid = require("./cad.json").cavirtex.rates.bid
   bitstamp_bid = require("./usd.json").bitstamp.rates.bid
 
-  app.locals.sell = Math.max(virtex_ask, bitstamp_ask * usd_to_cad).toFixed(2)
-  app.locals.buy = Math.min(virtex_bid, bitstamp_bid * usd_to_cad).toFixed(2)
+  app.locals.sell = (commission * Math.max(virtex_ask, bitstamp_ask * usd_to_cad)).toFixed(2)
+  app.locals.buy = (commission * Math.min(virtex_bid, bitstamp_bid * usd_to_cad)).toFixed(2)
   next()
 
 app = express()
