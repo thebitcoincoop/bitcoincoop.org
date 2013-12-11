@@ -7,7 +7,7 @@ calculator = require("./routes/calculator")
 
 setRates = (req, res, next) ->
   usd_to_cad = require("./usd_cad.json").rate
-  bistamp_commission = 0.02
+  bitstamp_commission = 0.02
   virtex_commission = 0.05
 
   virtex_ask = require("./cad.json").cavirtex.rates.ask
