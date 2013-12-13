@@ -1,3 +1,4 @@
+fs = require('fs')
 express = require('express')
 path = require('path')
 engines = require('consolidate')
@@ -10,15 +11,24 @@ setRates = (req, res, next) ->
   bitstamp_commission = 0.02
   virtex_commission = 0.05
 
-  virtex_ask = require("./cad.json").cavirtex.rates.ask
-  bitstamp_ask = require("./usd.json").bitstamp.rates.ask
-  virtex_bid = require("./cad.json").cavirtex.rates.bid
-  bitstamp_bid = require("./usd.json").bitstamp.rates.bid
+  fs.readFile("./cad.json", (err, data) ->
+    virtex_ask = JSON.parse(data).cavirtex.rates.ask
+    virtex_ask *= 1 + virtex_commission
+    virtex_bid = JSON.parse(data).cavirtex.rates.bid
+    virtex_bid *= 1 - virtex_commission
 
-  app.locals.sell = Math.max(virtex_ask * (1 + virtex_commission), bitstamp_ask * usd_to_cad * (1 + bitstamp_commission)).toFixed(2)
-  app.locals.buy = Math.min(virtex_bid * (1 - virtex_commission), bitstamp_bid * usd_to_cad * (1 - bitstamp_commission)).toFixed(2)
+    fs.readFile("./usd.json", (err, data) ->
+      bitstamp_ask = JSON.parse(data).bitstamp.rates.ask
+      bitstamp_ask *= 1 + bitstamp_commission
+      bitstamp_bid = JSON.parse(data).bitstamp.rates.bid
+      bitstamp_bid *= 1 - bitstamp_commission
 
-  next()
+      app.locals.sell = Math.max(virtex_ask, bitstamp_ask * usd_to_cad).toFixed(2)
+      app.locals.buy = Math.min(virtex_bid, bitstamp_bid * usd_to_cad).toFixed(2)
+
+      next()
+    )
+  )
 
 app = express()
 app.enable('trust proxy')
