@@ -1,3 +1,4 @@
-curl https://api.bitcoinaverage.com/exchanges/CAD > /home/yuri/Workspace/bitcoincoop/cad.json
-curl https://api.bitcoinaverage.com/exchanges/USD > /home/yuri/Workspace/bitcoincoop/usd.json
-curl "http://rate-exchange.appspot.com/currency?from=USD&to=CAD" > /home/yuri/Workspace/bitcoincoop/usd_cad.json 
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+curl https://api.bitcoinaverage.com/exchanges/CAD > $DIR/cad.json
+curl https://api.bitcoinaverage.com/exchanges/USD > $DIR/usd.json
+curl "http://rate-exchange.appspot.com/currency?from=USD&to=CAD" > $DIR/usd_cad.json 
