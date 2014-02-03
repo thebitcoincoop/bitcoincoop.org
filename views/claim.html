@@ -1,3 +1,9 @@
+<script src="/js/qrcode.js"></script>
+<script>
+  $(function() {
+      new QRCode('qr', "{{address}}");
+  });
+</script>
 <style>
   .large { font-size: 24px; font-weight: bold; }
 </style>
@@ -12,22 +18,22 @@ You've received <span class="large">{{amount}} Bitcoin</span> worth <span class=
 Bitcoin is a global currency that you can send over the Internet to anyone who has a bitcoin address.
 </p>
 
-<div class="row-fluid">
-  <div class="span6">
+<div class="row-fluid" style="margin-bottom: 10px">
+  <div class="span8">
     <p>
     We've created an account for you at <a href="{{url}}">{{url}}</a>.  Login with the password provided on your paper claim note to spend some or all of your bitcoins or wait and see if they grow in value over time.
-    Your bitcoin address is <b>{{address}}</b> and looks like this in graphical QR Code form:
+    Your address is <b>{{address}}</b> and is represented as a graphical QR code on the right.
+    </p>
+
+    <p class="alert-error">
+    Please go into the <b>Account Settings</b> page and change your password within 30 days or we will reclaim your bitcoins and give them to someone else.  Choose a strong password that is 15 characters or more.  There is no way to reset a forgotten password or recover your coins if someone guesses your password.
     </p>
   </div>
 
-  <div class="span4">
-    <div id="qr">blah</div>
+  <div class="span2">
+    <div id="qr"></div>
   </div>
 </div>
-
-<p class="alert-error">
-Please go into the <b>Account Settings</b> page and change your password within 30 days or we will reclaim your bitcoins and give them to someone else.  Choose a strong password that is 15 characters or more.  There is no way to reset a forgotten password or recover your coins if someone guesses your password.
-</p>
 
 <p>
 Give your address out or print the QR code and post it in your shop so people can send you bitcoins from their computer or phone.  It's free to send and receive payments with Bitcoin.

@@ -68,14 +68,16 @@ for route, view of routes
 app.get('/merchants2', merchants.list)
 
 app.get('/claim/:id', (req, res) ->
+  account = (i for i in require('./accounts.json').accounts when i.id is req.params.id)[0]
+
   res.render('claim', 
     js: (-> global.js), 
     css: (-> global.css),
     layout: 'layout',
-    address: '12345',
-    amount: 0.1,
+    address: account.address,
+    amount: account.amount,
     rupees: 500,    
-    url: 'https://blockchain.info/wallet/basdasd-asdasd-asdbasd-aaaaa'
+    url: account.link
   )
 )
 
