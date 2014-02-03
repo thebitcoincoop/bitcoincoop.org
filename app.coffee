@@ -67,6 +67,17 @@ for route, view of routes
 
 app.get('/merchants2', merchants.list)
 
+app.get('/claim/:id', (req, res) ->
+  res.render('claim', 
+    js: (-> global.js), 
+    css: (-> global.css),
+    layout: 'layout',
+    address: '12345',
+    amount: 0.1,
+    rupees: 500,    
+    url: 'https://blockchain.info/wallet/basdasd-asdasd-asdbasd-aaaaa'
+  )
+)
 
 app.post('/contact', (req, res) ->
   nodemailer = require("nodemailer")
