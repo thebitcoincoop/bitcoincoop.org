@@ -14,7 +14,6 @@ setRates = (req, res, next) ->
   fs.readFile("./usd_cad.xml", (err, data) ->
     parser.parseString data, (err, result) ->
       console.dir JSON.stringify(result["query"]["results"][0]["rate"][0]["Rate"])
-      console.log 'Done.'
       usd_to_cad = result["query"]["results"][0]["rate"][0]["Rate"][0];
 
       console.log 'rate is '+usd_to_cad
@@ -33,6 +32,9 @@ setRates = (req, res, next) ->
           bitstamp_ask *= 1 + bitstamp_commission
           bitstamp_bid = JSON.parse(data).bitstamp.rates.bid
           bitstamp_bid *= 1 - bitstamp_commission
+
+          console.log 'bitstamp is '+JSON.parse(data).bitstamp.rates.ask
+          console.log 'bitstamp CAD is '+bitstamp_ask
 
           #app.locals.sell = Math.max(virtex_ask, bitstamp_ask * usd_to_cad).toFixed(2)
           #app.locals.buy = Math.min(virtex_bid, bitstamp_bid * usd_to_cad).toFixed(2)
@@ -70,13 +72,13 @@ routes =
 for route, view of routes
   ((route, view) ->
     app.get(route, (req, res) ->
-      res.render(view, 
-        js: (-> global.js), 
-        css: (-> global.css), 
+      res.render(view,
+        js: (-> global.js),
+        css: (-> global.css),
         layout: 'layout',
       )
     )
-  )(route, view) 
+  )(route, view)
 
 
 app.get('/merchants2', merchants.list)
@@ -84,13 +86,13 @@ app.get('/merchants2', merchants.list)
 app.get('/claim/:id', (req, res) ->
   account = (i for i in require('./accounts.json').accounts when i.id is req.params.id)[0]
 
-  res.render('claim', 
-    js: (-> global.js), 
+  res.render('claim',
+    js: (-> global.js),
     css: (-> global.css),
     layout: 'layout',
     address: account.address,
     amount: account.amount,
-    rupees: 500,    
+    rupees: 500,
     url: account.link
   )
 )
@@ -99,7 +101,7 @@ app.post('/contact', (req, res) ->
   nodemailer = require("nodemailer")
   transport = nodemailer.createTransport("Sendmail", "/usr/sbin/sendmail")
 
-  mailOptions = 
+  mailOptions =
     from: "The Bitcoin Co-op <info@bitcoincoop.org>",
     to: "info@bitcoincoop.org",
     subject: "Contact Form",
@@ -110,8 +112,8 @@ app.post('/contact', (req, res) ->
     smtpTransport.close()
   )
 
-  res.render('thanks', 
-    js: (-> global.js), 
+  res.render('thanks',
+    js: (-> global.js),
     css: (-> global.css),
     layout: 'layout'
   )
