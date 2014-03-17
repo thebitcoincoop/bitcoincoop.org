@@ -62,6 +62,7 @@ routes =
   "/": 'index'
   "/about": 'about'
   "/education": 'education'
+  "/coinos": 'coinos'
   "/exchangers": 'exchangers'
   "/exchangers/join": 'join'
   "/merchants": 'merchants'
