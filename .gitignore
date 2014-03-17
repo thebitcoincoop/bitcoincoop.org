@@ -4,6 +4,7 @@ config.js
 builtAssets
 .project
 npm-debug.log
+usd_cad.xml
 cad.json
 usd.json
 usd_cad.json
