@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<query xmlns:yahoo="http://www.yahooapis.com/v1/base.rng" yahoo:count="2" yahoo:created="2014-02-19T06:42:29Z" yahoo:lang="en-US"><results><rate id="USDCAD"><Name>USD to CAD</Name><Rate>1.0925</Rate><Date>2/19/2014</Date><Time>1:41am</Time><Ask>1.0926</Ask><Bid>1.0925</Bid></rate><rate id="CADUSD"><Name>CAD to USD</Name><Rate>0.9153</Rate><Date>2/19/2014</Date><Time>1:41am</Time><Ask>0.9153</Ask><Bid>0.9153</Bid></rate></results></query><!-- total: 86 -->
+<!-- engine4.yql.gq1.yahoo.com -->
