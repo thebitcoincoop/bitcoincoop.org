@@ -18,8 +18,8 @@ setRates = (req, res, next) ->
 
       console.log 'rate is '+usd_to_cad
 
-      bitstamp_commission = 0.05
-      virtex_commission = 0.05
+      bitstamp_commission = 0
+      virtex_commission = 0
 
       fs.readFile("./cad.json", (err, data) ->
         virtex_ask = JSON.parse(data).cavirtex.rates.ask
