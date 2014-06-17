@@ -68,6 +68,7 @@ routes =
   "/merchants": 'merchants'
   "/merchants/signup": 'signup'
   "/contact": 'contact'
+  "/partners": 'partners'
 
 
 for route, view of routes
