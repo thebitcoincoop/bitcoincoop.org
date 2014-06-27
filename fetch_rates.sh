@@ -1,3 +1,4 @@
+#!/bin/bash
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 curl -k https://api.bitcoinaverage.com/exchanges/CAD > $DIR/cad.json.tmp && mv $DIR/cad.json.tmp $DIR/cad.json
 curl -k https://api.bitcoinaverage.com/exchanges/USD > $DIR/usd.json.tmp && mv $DIR/usd.json.tmp $DIR/usd.json
