@@ -3,9 +3,6 @@ express = require('express')
 path = require('path')
 engines = require('consolidate')
 
-merchants = require("./routes/merchants")
-calculator = require("./routes/calculator")
-
 app = express()
 app.enable('trust proxy')
 app.engine('html', require('mmm').__express)
@@ -19,15 +16,10 @@ app.use(app.router)
 
 routes =
   "/": 'index'
-  "/about": 'about'
-  "/education": 'education'
-  "/coinos": 'coinos'
-  "/exchangers": 'exchangers'
-  "/exchangers/join": 'join'
-  "/merchants": 'merchants'
-  "/merchants/signup": 'signup'
+  "/meals": 'meals'
+  "/markets": 'markets'
+  "/csa": 'csa'
   "/contact": 'contact'
-  "/partners": 'partners'
 
 
 for route, view of routes
@@ -40,47 +32,6 @@ for route, view of routes
       )
     )
   )(route, view)
-
-
-app.get('/merchants2', merchants.list)
-
-app.get('/claim/:id', (req, res) ->
-  account = (i for i in require('./accounts.json').accounts when i.id is req.params.id)[0]
-
-  res.render('claim',
-    js: (-> global.js),
-    css: (-> global.css),
-    layout: 'layout',
-    address: account.address,
-    amount: account.amount,
-    rupees: 500,
-    url: account.link
-  )
-)
-
-app.post('/contact', (req, res) ->
-  nodemailer = require("nodemailer")
-  transport = nodemailer.createTransport("Sendmail", "/usr/sbin/sendmail")
-
-  mailOptions =
-    from: "The Bitcoin Co-op <info@bitcoincoop.org>",
-    to: "info@bitcoincoop.org",
-    subject: "Contact Form",
-    html: JSON.stringify(req.body)
-
-  transport.sendMail(mailOptions, (error, response) ->
-    console.log(error) if(error)
-    smtpTransport.close()
-  )
-
-  res.render('thanks',
-    js: (-> global.js),
-    css: (-> global.css),
-    layout: 'layout'
-  )
-)
-
-app.get('/ticker', calculator.ticker)
 
 app.use((err, req, res, next) ->
   res.status(500)
