@@ -14,12 +14,13 @@ app.use(express.bodyParser())
 app.use(express.cookieParser())
 app.use(app.router)
 
+users = require('./routes/users')
+
 routes =
   "/": 'index'
-  "/meals": 'meals'
-  "/markets": 'markets'
-  "/csa": 'csa'
-  "/contact": 'contact'
+  "/about": 'about'
+  "/contact": 'contact',
+  "/register": 'register'
 
 
 for route, view of routes
@@ -32,6 +33,8 @@ for route, view of routes
       )
     )
   )(route, view)
+
+app.post('/users', users.create)
 
 app.use((err, req, res, next) ->
   res.status(500)

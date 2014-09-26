@@ -1,0 +1,35 @@
+<h1>Sign Up</h1>
+
+<form id="register" action="/users" method="post" style="max-width: 400px">
+  {{#error}}
+    <div class="alert alert-danger">{{error}}</div>
+  {{/error}}
+
+  <div class="form-group">
+    <label for="email">Email:</label>
+    <input type="text" id="email" name="email" class="form-control" />
+  </div>
+
+  <div class="form-group">
+    <label for="phone">Phone:</label>
+    <input type="text" id="phone" name="phone" class="form-control" />
+  </div>
+
+  <div class="form-group">
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" class="form-control" />
+    <div id="messages"></div>
+  </div>
+
+  <div class="form-group">
+    <label for="confirm">Confirm Password:</label>
+    <input type="password" id="confirm" name="confirm" class="form-control" />
+  </div>
+
+  <div class="form-group">
+    <label for="address">Address:</label>
+    <textarea name="address" class="form-control"></textarea>
+  </div>
+
+  <input class="btn btn-primary" type="submit" value="Register" />
+</form>
