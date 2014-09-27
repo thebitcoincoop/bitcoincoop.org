@@ -1,26 +1,3 @@
-<style>
-  #beef {
-    background-image: url(/img/beef_and_broccoli.jpg);
-    background-position: 50% 50%;
-    background-repeat: no-repeat;
-    border-radius: 50%;
-    -webkit-border-radius: 50%;
-    -moz-border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    margin-right: 15px;
-  }
-
-  .grayscale {
-     -moz-filter: url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'><filter id=\'grayscale\'><feColorMatrix type=\'matrix\' values=\'0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0\'/></filter></svg>#grayscale");
-     -o-filter: url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'><filter id=\'grayscale\'><feColorMatrix type=\'matrix\' values=\'0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0\'/></filter></svg>#grayscale");
-     -webkit-filter: grayscale(100%);
-     filter: gray;
-     filter: url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'><filter id=\'grayscale\'><feColorMatrix type=\'matrix\' values=\'0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0\'/></filter></svg>#grayscale");
-   }
-
-  .lead { font-size: 46px; }
-</style>
 
 <div class="jumbotron">
   <div>
@@ -34,110 +11,19 @@
   </div>
 </div>
 
-<div class="row">
-</div>
-
 <h2><span class="fa fa-calendar"> November 4 Delivery</span> <small>Selection open until midnight, November 2</small></h2>
 <div class="row">
   <div class="col-md-6">
     <h3>Entrees <small>0 / 4</small></h3>
-
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <div id="beef" class="grayscale img pull-left"></div>
-Beef and Broccoli (Low Carb)
-      </div>
-      <div class="panel-body">
-        <div class="text-center pull-right">
-          <span class="lead">0</span><br />
-          <button type="button" class="btn btn-default"><span class="fa fa-minus"></span></button>
-          <button type="button" class="btn btn-default"><span class="fa fa-plus"></span></button>
-        </div>
-        <p>
-          In a ginger sauce and served over cauliflower “rice”
-        </p>
-        <p>
-        <span class="label label-default">Ingredients:</span> <small>Ginger, Cauliflower</small>
-        </p>
-      </div>
-    </div>
-
-    <div class="panel panel-default">
-      <div class="panel-heading">
-Carrot and Sweet Potato Beef Chilli (Autoimmune approved)
-      </div>
-      <div class="panel-body">
-hearty and savoury
-ingredients: ...
-      </div>
-    </div>
-
-    <div class="panel panel-default">
-      <div class="panel-heading">
-Oxtail Stew (Low Carb)
-      </div>
-      <div class="panel-body">
-braised for hours with the bone-in for maximum tenderness and nutrition
-ingredients: ...
-      </div>
-    </div>
-
-    <div class="panel panel-default">
-      <div class="panel-heading">
-Rabbit Cacciatorre (Low Carb)
-      </div>
-      <div class="panel-body">
-served over a sweet potato and turnip puree
-ingredients: ...
-      </div>
-    </div>
-
+    <div id="entrees"></div>
   </div>
 
   <div class="col-md-6">
     <h3>Soups <small>0 / 2</small></h3>
-
-    <div class="panel panel-default">
-      <div class="panel-heading">
-Carrot-Ginger Soup (Autoimmune Approved)
-      </div>
-      <div class="panel-body">
-This soup gains a pleasingly creamy consistency with the addition of coconut milk.
-ingredients: carrot, ginger, onion, apple, coconut milk, coconut oil, salt, pepper, nutmeg
-      </div>
-    </div>
-
-    <div class="panel panel-default">
-      <div class="panel-heading">
-Steveston Fish Chowder (Low Carb)
-      </div>
-      <div class="panel-body">
-This red chowder starts out with a nutritious fish bone broth and includes plenty of seafood and vegetables.
-ingredients: ...
-      </div>
-    </div>
+    <div id="soups"></div>
 
     <h3>Salads <small>0 / 2</small></h3>
-
-    <div class="panel panel-default">
-      <div class="panel-heading">
-Kale-Beet-Chicken Salad (Autoimmune Approved)
-      </div>
-      <div class="panel-body">
-...
-ingredients: ...
-      </div>
-    </div>
-
-    <div class="panel panel-default">
-      <div class="panel-heading">
-Arugula-Salmon Salad (Low Carb)
-      </div>
-      <div class="panel-body">
-Wild salmon is mixed with paleo mayonnaise, pickles olives and capers and served on a bed of arugala and other tender greens with a lemon dressing.
-Ingredients: ...
-      </div>
-    </div>
+    <div id="salads"></div>
   </div>
 </div>
 
@@ -194,5 +80,24 @@ Ingredients: ...
         <button type="button" id="close" class="btn btn-primary">Sign me up!</button>
       </div>
     </div>
+  </div>
+</div>
+
+<div id="item" class="panel panel-default" style="display: none">
+  <div class="panel-heading">
+    <div class="grayscale img pull-left"></div>
+    <span class="name"></span>
+  </div>
+  <div class="panel-body">
+    <div class="text-center pull-right">
+      <span class="lead">0</span><br />
+      <button type="button" class="btn btn-default"><span class="fa fa-minus"></span></button>
+      <button type="button" class="btn btn-default"><span class="fa fa-plus"></span></button>
+    </div>
+    <p class="description"></p>
+    <p>
+      <span class="label label-default">Ingredients:</span> 
+      <small class="ingredients"></small>
+    </p>
   </div>
 </div>
