@@ -2,18 +2,32 @@
 #= require items.coffee
 
 $(->
-  $(document).on(
-    mouseenter: (-> $(this).find('.img').removeClass('grayscale'))
-    mouseleave: (-> $(this).find('.img').addClass('grayscale'))
-    '.panel'
+  $(document).on('click', '.plus, .minus', (e) -> 
+    e.stopPropagation()
+
+    span = $(this).siblings('.lead')
+    count = parseInt(span.html())
+
+    n = 1
+    n = -1 if $(this).hasClass('minus')
+
+    return if count is 0 and n is -1
+    count += n
+
+    img = $(this).closest('.item').find('.img')
+    img.toggleClass('grayscale', count is 0)
+
+    span.html(count.toString())
   )
+
+  $(document).on('click', '.item', -> $(this).find('.plus').click())
 
   $('#register').click(->
     $('#modal').modal()
   )
 
   for item in window.items
-    div = $('#item').clone()
+    div = $('.item').first().clone()
     div.removeAttr('id')
     div.find('.img').css('background-image', "url(#{item.image})")
     div.find('.name').html(item.name)
