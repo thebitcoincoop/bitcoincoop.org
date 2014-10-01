@@ -50,6 +50,7 @@ $(->
   $('#order').submit(->
     order = "BEEF"
     $.post('/orders', order: order)
+    return false
   )
 
   for item in window.items

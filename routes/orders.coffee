@@ -3,8 +3,7 @@ db = require('../redis')
 module.exports = ->
   create: (req, res) ->
     db.set("order:#{req.body.email}:#{req.body.week}", req.body.order, ->
-      req.session.redirect = "/#{req.body.username}/edit"
-      sessions.create(req, res)
+      res.end()
     )
 
     res.render('order', 
