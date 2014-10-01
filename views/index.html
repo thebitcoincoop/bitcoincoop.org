@@ -7,38 +7,41 @@
     </p>
     <a href="/about"><button type="button" class="btn btn-primary">Learn More »</button></a>
     <h2><span class="lead"><b>10</b></span> spots left. Sign up before October 15.</h2>
-    <button id="register" type="button" class="btn btn-primary">Register Now</button>
+    <button id="register-button" type="button" class="btn btn-primary">Register Now</button>
   </div>
 </div>
 
 <h2><span class="fa fa-calendar"> November 4 Delivery</span> <small>Selection open until midnight, November 2</small></h2>
-<div class="row">
-  <div class="col-md-6">
-    <h3>Entrees <small>0 / 4</small></h3>
-    <div id="entrees"></div>
-  </div>
 
-  <div class="col-md-6">
-    <h3>Soups <small>0 / 2</small></h3>
-    <div id="soups"></div>
-
-    <h3>Salads <small>0 / 2</small></h3>
-    <div id="salads"></div>
-  </div>
-</div>
-
-<h2><span class="fa fa-pencil"> Order Form</span></h2>
-<form id="register" action="/users" method="post">
+<form id="order" action="/orders" method="post">
   {{#error}}
     <div class="alert alert-danger">{{error}}</div>
   {{/error}}
 
-  <div class="form-group">
-    <label for="email">Your Email:</label>
-    <input type="text" id="email" name="email" class="form-control" />
+  <div class="row">
+    <div class="col-md-6">
+      <div class="items">
+        <h3>Entrees <small><span class="count">0</span> / <span class="max">4</span></small></h3>
+        <div id="entrees"></div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="items">
+        <h3>Soups <small><span class="count">0</span> / <span class="max">2</span></small></h3>
+        <div id="soups"></div>
+      </div>
+
+      <div class="items">
+        <h3>Salads <small><span class="count">0</span> / <span class="max">2</span></small></h3>
+        <div id="salads"></div>
+      </div>
+    </div>
   </div>
 
-  <input class="btn btn-primary" type="submit" value="Place Order" />
+  <div class="text-center">
+    <input class="btn btn-primary lead" type="submit" value="Place Order" />
+  </div>
 </form>
 
 <div class="modal fade" id="modal" tabindex="-1" role="dialog">
@@ -72,12 +75,12 @@
 
           <div class="form-group">
             <label for="address">Notes:</label>
-            <textarea name="address" class="form-control" placeholder="e.g. Please leave meals with my receptionist, Jorge.  Please leave meals in the cooler in the walkway on the east side of my house.  Be careful to latch the gate when you leave."></textarea>
+            <textarea name="address" class="form-control" placeholder="e.g. Please leave meals with my receptionist, Alex."></textarea>
           </div>
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" id="close" class="btn btn-primary">Sign me up!</button>
+        <button type="button" id="close" class="btn btn-primary" data-dismiss="modal">Sign me up!</button>
       </div>
     </div>
   </div>
@@ -90,7 +93,7 @@
   </div>
   <div class="panel-body">
     <div class="text-center pull-right">
-      <span class="lead">0</span><br />
+      <span class="count lead">0</span><br />
       <button type="button" class="btn btn-default minus"><span class="fa fa-minus"></span></button>
       <button type="button" class="btn btn-default plus"><span class="fa fa-plus"></span></button>
     </div>

@@ -1,17 +1,16 @@
-db = require("../redis")
+db = require('../redis')
 
 module.exports = ->
   create: (req, res) ->
-    userkey = "farm:#{req.body.email}"
-    db.hmset(userkey,
-      email: req.body.email,
-      phone: req.body.phone,
-      address: req.body.address
+    db.set("order:#{req.body.email}:#{req.body.week}", req.body.order, ->
+      req.session.redirect = "/#{req.body.username}/edit"
+      sessions.create(req, res)
     )
 
-    res.render('welcome', 
+    res.render('order', 
       user: req.params.user, 
       layout: 'mail',
+      order: req.body.order,
       js: (-> global.js), 
       css: (-> global.css),
       (err, html) ->
@@ -20,7 +19,7 @@ module.exports = ->
         email = new sendgrid.Email(
           to: req.body.email
           from: 'sea.green@gmail.com'
-          subject: 'Welcome to Karma Farma'
+          subject: 'Karma Farma Order'
           html: html
         )
 

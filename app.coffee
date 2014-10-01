@@ -14,6 +14,7 @@ app.use(express.bodyParser())
 app.use(express.cookieParser())
 app.use(app.router)
 
+orders = require('./routes/orders')
 users = require('./routes/users')
 
 routes =
@@ -35,6 +36,7 @@ for route, view of routes
   )(route, view)
 
 app.post('/users', users.create)
+app.post('/orders', orders.create)
 
 app.use((err, req, res, next) ->
   res.status(500)
