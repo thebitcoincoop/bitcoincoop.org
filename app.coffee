@@ -28,6 +28,7 @@ routes =
   "/merchants/signup": 'signup'
   "/contact": 'contact'
   "/partners": 'partners'
+  "/coinfest": 'coinfest'
 
 
 for route, view of routes
@@ -41,6 +42,11 @@ for route, view of routes
     )
   )(route, view)
 
+
+app.get('/bc/*', (req, res) ->
+  res.send(req.path))
+  res.end()
+)
 
 app.get('/merchants2', merchants.list)
 
