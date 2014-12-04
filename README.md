@@ -1,27 +1,6 @@
-# Vancouver Bitcoin
+# The Bitcoin Co-op
 
-This is the source code for http://vanbtc.ca/
-
-The site includes a simple Point-of-Sale utility that merchants can run on a tablet or phone to convert dollars to bitcoins and receive payments from customers.  See http://vanbtc.ca/calculator for an example. 
-
-A setup page allows anyone to configure some basic parameters like title, logo, address, exchange, and commission: http://vanbtc.ca/setup
-
-These parameters can be saved and made available at a convenient URL.
-
-# Technical Details
-
-The site is programmed in HTML and Coffeescript using NodeJS and jQuery. Account details and transactions are stored in a Redis database.
-
-We use the websocket payment notification API from http://blockchain.info/api/api_websocket to listen for and display payment notifications in real time. The bitcoin exchange rates are fetched from http://bitcoincharts.com/ and cached with a 15 minute expiry.
-
-When transactions are detected, they're logged along with the current exchange rate. A report is provided so that merchants can account for how many bitcoins they received in a given time period and see their equivalent dollar value. This allows us to insulate merchants from bitcoin market volatility by offering to purchase their bitcoins for exactly what they were worth at the time of sale.
-
-# Installation
-
-    git clone https://github.com/asoltys/vanbtc.ca  
-    cd vanbtc.ca  
-    npm install  
-    coffee app
+This website uses the Twitter Bootstrap library and the ExpressJS framework.  If you want to contribute changes or updates, contact adam@bitcoincoop.org to get started.
 
 # License
 
