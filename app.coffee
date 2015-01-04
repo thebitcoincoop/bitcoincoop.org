@@ -24,6 +24,7 @@ routes =
   "/coinos": 'coinos'
   "/exchangers": 'exchangers'
   "/exchangers/join": 'join'
+  "/membership": 'membership'
   "/merchants": 'merchants'
   "/merchants/signup": 'signup'
   "/contact": 'contact'
