@@ -44,7 +44,7 @@ for route, view of routes
 
 
 app.get('/bc/*', (req, res) ->
-  res.send(req.path))
+  res.send(req.path)
   res.end()
 )
 
