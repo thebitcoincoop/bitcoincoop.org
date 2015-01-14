@@ -1,10 +1,35 @@
+<style>
+label { width: 60px; }
+</style>
+
 <h1>Membership</h1>
 
-<p>Are you interested in joining our member-run co-operative?  Membership costs $20 and is open to anyone.  You don't need to be a member to participate in our events and outings but membership is a great way to show your support of our efforts.  
+<p>Co-op membership is open to any person or organization subject to the approval of our <a href="/directors">directors</a>. To become a member, fill out the following form and send payment of $20 CAD equivalent in Bitcoin to the address provided.
 </p>
 
-<p>
-Membership fees and other funds raised through sponsorship and donation are placed into a multisignature Bitcoin address controlled by the directors of the co-op. Funds we collect through membership fees, sponsorship, and donation are allocated to projects and activities that benefit the co-op and Bitcoin in general, according to the discretion of our directors.  Allocations out of our multisignature address require digital signatures from a majority of the directorsof the co-op.  Directors are nominated and elected every year during our annual general meeting (AGM).
-</p>
+<p>Once approved, you will be given a member number and recorded in our membership registry, giving you the ability to nominate and elect directors at our annual general meetings and vote on resolutions. Please read our <a href="/bylaws.pdf">bylaws</a> and <a href="/memorandum.pdf">memorandum of agreement</a> to learn more about how we operate.</p>
 
-<p>To become a member, fill out the following form and send a payment to the address below.  You will be assigned a member number and recorded in our membership registry, giving you the ability to vote at our meetings and have a say in how we affairs.</p>
+<div class="well">
+<form id="register" action="/users" method="post">
+  {{#error}}
+    <div class="alert alert-danger">{{error}}</div>
+  {{/error}}
+
+  <div class="form-group">
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" class="form-control" />
+  </div>
+
+  <div class="form-group">
+    <label for="email">Email:</label>
+    <input type="text" id="email" name="email" class="form-control" />
+  </div>
+
+  <div class="form-group">
+    <label for="address">Address:</label>
+    <input type="text" id="address" name="address" class="form-control" />
+  </div>
+
+  <input class="btn btn-primary" type="submit" value="Become a Member" />
+</form>
+</div>
