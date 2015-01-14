@@ -2,6 +2,7 @@ fs = require('fs')
 express = require('express')
 path = require('path')
 engines = require('consolidate')
+request = require('request')
 
 merchants = require("./routes/merchants")
 calculator = require("./routes/calculator")
@@ -17,9 +18,22 @@ app.use(express.bodyParser())
 app.use(express.cookieParser())
 app.use(app.router)
 
+do fetchRates = ->
+  request("https://api.bitcoinaverage.com/exchanges/all", (error, response, body) ->
+    try 
+      require('util').isDate(JSON.parse(body).timestamp)
+      file = 'public/js/rates.json'
+      stream = fs.createWriteStream(file)
+      fs.truncate(file, 0, ->
+        stream.write(body)
+      )
+  )
+  setTimeout(fetchRates, 120000)
+
 routes =
   "/": 'index'
   "/about": 'about'
+  "/directors": 'directors'
   "/education": 'education'
   "/coinos": 'coinos'
   "/exchangers": 'exchangers'
@@ -62,6 +76,50 @@ app.get('/claim/:id', (req, res) ->
     amount: account.amount,
     rupees: 500,
     url: account.link
+  )
+)
+
+app.post('/users', (req, res) ->
+  db = require('./redis')
+
+  errormsg = ""
+  userkey = "user:"+req.body.email
+  db.hgetall(userkey, (err, obj) ->
+    if obj
+      errormsg += "Email exists"
+
+    if errormsg
+      return res.render('membership',
+        layout: 'layout',
+        js: (-> global.js), 
+        css: (-> global.css),
+        error: errormsg
+      )
+
+    db.sadd("users",userkey)
+    db.hmset(userkey,
+      name: req.body.name,
+      email: req.body.email,
+      address: req.body.address
+    )
+
+    if process.env.NODE_ENV is 'production'
+      res.render('users/welcome', 
+        layout: 'mail',
+        js: (-> global.js), 
+        css: (-> global.css),
+        (err, html) ->
+          sendgrid = require('sendgrid')(config.sendgrid_user, config.sendgrid_password)
+
+          email = new sendgrid.Email(
+            to: req.body.email
+            from: 'everyone@bitcoincoop.org'
+            subject: 'Welcome to the Co-op!'
+            html: html
+          )
+
+          sendgrid.send(email)
+      )
   )
 )
 
