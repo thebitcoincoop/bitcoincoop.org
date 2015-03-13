@@ -2,9 +2,12 @@
 label { width: 60px; }
 </style>
 
+<script src="/js/qrcode.js"></script>
+<script src="/js/membership.js"></script>
+
 <h1>Membership</h1>
 
-<p>Co-op membership is open to any person or organization subject to the approval of our <a href="/directors">directors</a>. To become a member, fill out the following form and send payment of $20 CAD equivalent in Bitcoin to the address provided.
+<p>Co-op membership is open to any person or organization, subject to the approval of our <a href="/directors">directors</a>. To become a member, fill out the following form and send payment of $20 CAD equivalent in Bitcoin to the address provided.
 </p>
 
 <p>Once approved, you will be given a member number and recorded in our membership registry, giving you the ability to nominate and elect directors at our annual general meetings and vote on resolutions. Please read our <a href="/bylaws.pdf">bylaws</a> and <a href="/memorandum.pdf">memorandum of agreement</a> to learn more about how we operate.</p>
@@ -32,4 +35,24 @@ label { width: 60px; }
 
   <input class="btn btn-primary" type="submit" value="Become a Member" />
 </form>
+</div>
+
+<div class="modal fade" id="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Confirm Order</h4>
+      </div>
+
+      <div class="modal-body">
+        <p id="payment_details"></p>
+        <h4 id="address"></h4>
+        <div id="qr" style="margin-left: 150px; margin-bottom: 15px;"></div>
+        <div class="alert alert-success" id="paid" style="display: none">
+          <h2>Thanks!  Payment received!</h2>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

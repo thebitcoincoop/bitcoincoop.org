@@ -1,22 +1,29 @@
+g = this
 $(->
   $.get('/js/rates.json', (data) ->
     g.rates = data
+
+    price = 0.04 
+    rate = g.rates.CAD.quadrigacx.rates.bid
+    g.amount = parseFloat(price / rate).toFixed(8)
+    g.address = '15dRBzyg68NXRraGQVpa4MgbohyZEFH7sM'
+
+    $('#payment_details').html("You can pay now by transferring #{g.amount} BTC to:")
+    $('#address').html(g.address)
+
+    $('#qr').html('')
+    new QRCode('qr', 
+      text: "bitcoin:#{g.address}?amount=#{g.amount}"
+      width: 250
+      height: 250
+    )
   )
 
-  price = 20
-  rate = g.rates.CAD.quadrigacx.rates.bid
-  g.amount = parseFloat(price / rate).toFixed(8)
-  g.address = '15dRBzyg68NXRraGQVpa4MgbohyZEFH7sM'
-
-  $('#payment_details').html("You can pay now by transferring #{g.amount} BTC to:")
-  $('#address').html(g.address)
-
-  $('#qr').html('')
-  new QRCode('qr', 
-    text: "bitcoin:#{g.address}?amount=#{g.amount}"
-    width: 250
-    height: 250
+  $('#register').submit((e) ->
+    e.preventDefault()
+    $('#modal').modal()
   )
+
   setTimeout(listen, 10000) unless g.blockchain
 )
 
@@ -48,4 +55,4 @@ listen = ->
 
       if amount >= g.amount
         $('#paid').show()
-        $('#request, #cancel').hide()
+        $('#register').unbind('submit').submit()
