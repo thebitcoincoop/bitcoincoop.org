@@ -8,11 +8,11 @@
     $.get('/js/rates.json', function(data) {
       var price, rate;
       g.rates = data;
-      price = 0.04;
+      price = 20.00;
       rate = g.rates.CAD.quadrigacx.rates.bid;
       g.amount = parseFloat(price / rate).toFixed(8);
-      g.address = '15dRBzyg68NXRraGQVpa4MgbohyZEFH7sM';
-      $('#payment_details').html("You can pay now by transferring " + g.amount + " BTC to:");
+      g.address = '35wDNxFhDB6Ss8fgijUUpn2Yx6sggDgGqS';
+      $('#amount').html(g.amount.toString());
       $('#address').html(g.address);
       $('#qr').html('');
       return new QRCode('qr', {
@@ -26,7 +26,7 @@
       return $('#modal').modal();
     });
     if (!g.blockchain) {
-      return setTimeout(listen, 10000);
+      return setTimeout(listen, 60000);
     }
   });
 
@@ -34,15 +34,17 @@
     if (!(g.blockchain && g.blockchain.readyState === 1)) {
       g.blockchain = new WebSocket("wss://ws.blockchain.info/inv");
       g.blockchain.onopen = function() {
-        $('#connection').fadeIn().removeClass('glyphicon-exclamation-sign').addClass('glyphicon-signal');
+        $('#payment_error').hide();
+        $('#payment_request').show();
         return g.blockchain.send('{"op":"addr_sub", "addr":"' + g.address + '"}');
       };
       g.blockchain.onerror = function(err) {
-        $('#connection').addClass('glyphicon-exclamation-sign').removeClass('glyphicon-signal');
+        $('#payment_request').hide();
+        $('#payment_error').show()('<div class="alert alert-error">Error connecting to payment server, try refreshing the page or trying again later.  Please contact info@bitcoincoop.org if the problem persists.</div>');
         return g.blockchain = null;
       };
       g.blockchain.onclose = function() {
-        $('#connection').addClass('glyphicon-exclamation-sign').removeClass('glyphicon-signal');
+        $('#payment_request').html('<div class="alert alert-error">Error connecting to payment server, try refreshing the page or trying again later.  Please contact info@bitcoincoop.org if the problem persists.</div>');
         return g.blockchain = null;
       };
       return g.blockchain.onmessage = function(e) {
@@ -57,6 +59,7 @@
         });
         if (amount >= g.amount) {
           $('#paid').show();
+          $('#payment_request').hide();
           return $('#register').unbind('submit').submit();
         }
       };

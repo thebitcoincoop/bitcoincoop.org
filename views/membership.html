@@ -3,14 +3,15 @@ label { width: 60px; }
 </style>
 
 <script src="/js/qrcode.js"></script>
+<script src="/js/check_email.js"></script>
 <script src="/js/membership.js"></script>
 
 <h1>Membership</h1>
 
-<p>Co-op membership is open to any person or organization, subject to the approval of our <a href="/directors">directors</a>. To become a member, fill out the following form and send payment of $20 CAD equivalent in Bitcoin to the address provided.
+<p>Membership in our co-operative is open to any person or organization, subject to the approval of our <a href="/directors">directors</a>. To become a member, fill out the following form and send a payment of $20 to the address provided.
 </p>
 
-<p>Once approved, you will be given a member number and recorded in our membership registry, giving you the ability to nominate and elect directors at our annual general meetings and vote on resolutions. Please read our <a href="/bylaws.pdf">bylaws</a> and <a href="/memorandum.pdf">memorandum of agreement</a> to learn more about how we operate.</p>
+<p>Once approved, you will be given a member number and recorded in our membership registry. We'll invite you to our meetings where you'll be able to vote on resolutions and elect directors of the co-op. Please read our <a href="/bylaws.pdf">bylaws</a> and <a href="/memorandum.pdf">memorandum of agreement</a> to learn more about how we operate and what membership entails.</p>
 
 <div class="well">
 <form id="register" action="/users" method="post">
@@ -24,13 +25,13 @@ label { width: 60px; }
   </div>
 
   <div class="form-group">
-    <label for="email">Email:</label>
-    <input type="text" id="email" name="email" class="form-control" />
+    <label for="address">Address:</label>
+    <input type="text" id="address" name="address" class="form-control" />
   </div>
 
   <div class="form-group">
-    <label for="address">Address:</label>
-    <input type="text" id="address" name="address" class="form-control" />
+    <label for="email">Email:</label>
+    <input type="text" id="email" name="email" class="form-control" />
   </div>
 
   <input class="btn btn-primary" type="submit" value="Become a Member" />
@@ -42,15 +43,17 @@ label { width: 60px; }
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Confirm Order</h4>
+        <h4 class="modal-title">Payment</h4>
       </div>
 
       <div class="modal-body">
-        <p id="payment_details"></p>
-        <h4 id="address"></h4>
-        <div id="qr" style="margin-left: 150px; margin-bottom: 15px;"></div>
+        <div id="payment_request">
+          <p>You can pay now by transferring <span id="amount"></span> BTC to:</p>
+          <h4 id="address"></h4>
+          <div id="qr" style="margin-left: 150px; margin-bottom: 15px;"></div>
+        </div>
         <div class="alert alert-success" id="paid" style="display: none">
-          <h2>Thanks!  Payment received!</h2>
+          <h2>Thanks! Welcome to the co-op!</h2>
         </div>
       </div>
     </div>

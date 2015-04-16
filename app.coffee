@@ -86,7 +86,7 @@ app.post('/users', (req, res) ->
   userkey = "member:"+req.body.email
   db.hgetall(userkey, (err, obj) ->
     if obj
-      errormsg += "Email exists"
+      errormsg += "Sorry, that email address is already registered"
 
     if errormsg
       return res.render('membership',

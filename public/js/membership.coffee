@@ -8,7 +8,7 @@ $(->
     g.amount = parseFloat(price / rate).toFixed(8)
     g.address = '15dRBzyg68NXRraGQVpa4MgbohyZEFH7sM'
 
-    $('#payment_details').html("You can pay now by transferring #{g.amount} BTC to:")
+    $('#amount').html(g.amount.toString())
     $('#address').html(g.address)
 
     $('#qr').html('')
@@ -24,7 +24,7 @@ $(->
     $('#modal').modal()
   )
 
-  setTimeout(listen, 10000) unless g.blockchain
+  setTimeout(listen, 60000) unless g.blockchain
 )
 
 listen = ->
@@ -32,15 +32,17 @@ listen = ->
     g.blockchain = new WebSocket("wss://ws.blockchain.info/inv")
 
     g.blockchain.onopen = -> 
-      $('#connection').fadeIn().removeClass('glyphicon-exclamation-sign').addClass('glyphicon-signal')
+      $('#payment_error').hide()
+      $('#payment_request').show()
       g.blockchain.send('{"op":"addr_sub", "addr":"' + g.address + '"}')
     
     g.blockchain.onerror = (err) ->
-      $('#connection').addClass('glyphicon-exclamation-sign').removeClass('glyphicon-signal')
+      $('#payment_request').hide()
+      $('#payment_error').show()('<div class="alert alert-error">Error connecting to payment server, try refreshing the page or trying again later.  Please contact info@bitcoincoop.org if the problem persists.</div>')
       g.blockchain = null
 
     g.blockchain.onclose = ->
-      $('#connection').addClass('glyphicon-exclamation-sign').removeClass('glyphicon-signal')
+      $('#payment_request').html('<div class="alert alert-error">Error connecting to payment server, try refreshing the page or trying again later.  Please contact info@bitcoincoop.org if the problem persists.</div>')
       g.blockchain = null
 
     g.blockchain.onmessage = (e) ->
@@ -55,4 +57,5 @@ listen = ->
 
       if amount >= g.amount
         $('#paid').show()
+        $('#payment_request').hide()
         $('#register').unbind('submit').submit()
