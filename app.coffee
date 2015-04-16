@@ -83,10 +83,10 @@ app.post('/users', (req, res) ->
   db = require('./redis')
 
   errormsg = ""
-  userkey = "user:"+req.body.email
+  userkey = "member:"+req.body.email
   db.hgetall(userkey, (err, obj) ->
     if obj
-      errormsg += "Email exists"
+      errormsg += "Sorry, that email address is already registered"
 
     if errormsg
       return res.render('membership',
