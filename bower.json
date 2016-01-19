@@ -1,0 +1,22 @@
+{
+  "name": "The Bitcoin Co-op",
+  "description": "The Bitcoin Co-op",
+  "main": "app.js",
+  "authors": [
+    "Adam Soltys <asoltys@gmail.com>"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "bitcoin",
+    "co-op"
+  ],
+  "homepage": "https://github.com/thebitcoincoop/bitcoincoop.org",
+  "moduleType": [],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

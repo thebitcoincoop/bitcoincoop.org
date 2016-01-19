@@ -1,41 +1,45 @@
 <style>
-label { width: 60px; }
+label { width: 120px; }
+#qr { cursor: pointer; }
 </style>
 
 <script src="/js/qrcode.js"></script>
-<script src="/js/check_email.js"></script>
 <script src="/js/membership.js"></script>
 
 <h1>Membership</h1>
 
-<p>Membership in our co-operative is open to any person or organization, subject to the approval of our <a href="/directors">directors</a>. To become a member, fill out the following form and send a payment of $20 to the address provided.
-</p>
+<p>Membership is open to any person or organization who shares our values and wants to participate in our activities, subject to the approval of our democratically elected <a href="/directors">Board of Directors</a>. To become a member, fill out the following form and send payment to the address provided.  The fee is $20, payable in Bitcoin.</p>
 
-<p>Once approved, you will be given a member number and recorded in our membership registry. We'll invite you to our meetings where you'll be able to vote on resolutions and elect directors of the co-op. Please read our <a href="/bylaws.pdf">bylaws</a> and <a href="/memorandum.pdf">memorandum of agreement</a> to learn more about how we operate and what membership entails.</p>
+<p>After signing up, you'll be given a member number and recorded in our <a href="/register">register</a>.  We'll invite you to attend our Annual General Meetings where you'll be able to vote on resolutions and nominate and elect directors. You can find more information about co-operatives by visiting the <a href="http://bcca.coop/">British Columbia Co-operative Association</a> and reading the <a href="http://www.bclaws.ca/civix/document/id/complete/statreg/99028_01">BC Co-operative Association Act</a>.  You can also check out our <a href="/bylaws.pdf">Bylaws</a> and <a href="/memorandum.pdf">Memorandum of Agreement</a>.</p>
 
 <div class="well">
-<form id="register" action="/users" method="post">
-  {{#error}}
-    <div class="alert alert-danger">{{error}}</div>
-  {{/error}}
+  <h2>Registration Form</h2>
 
-  <div class="form-group">
-    <label for="name">Name:</label>
-    <input type="text" id="name" name="name" class="form-control" />
-  </div>
+  <form id="register" action="/users" method="post">
+    {{#error}}
+      <div class="alert alert-danger">{{error}}</div>
+    {{/error}}
 
-  <div class="form-group">
-    <label for="address">Address:</label>
-    <input type="text" id="address" name="address" class="form-control" />
-  </div>
+    <div class="form-group">
+      <label for="name">Full Name:</label>
+      <input type="text" id="name" name="name" class="form-control" required />
+      <span>(Published in our <a tabindex="-1" href="/register">register</a>)</span>
+    </div>
 
-  <div class="form-group">
-    <label for="email">Email:</label>
-    <input type="text" id="email" name="email" class="form-control" />
-  </div>
+    <div class="form-group">
+      <label for="email">Email Address:</label>
+      <input type="email" id="email" name="email" class="form-control" required />
+      <span>(Not published)</span>
+    </div>
 
-  <input class="btn btn-primary" type="submit" value="Become a Member" />
-</form>
+    <div class="form-group">
+      <label for="address">Mailing Address:</label>
+      <input type="text" id="address" name="address" class="form-control" required />
+      <span>(Not published)</span>
+    </div>
+
+    <input class="btn btn-primary" type="submit" value="Become a Member" />
+  </form>
 </div>
 
 <div class="modal fade" id="modal" tabindex="-1" role="dialog">
@@ -48,9 +52,11 @@ label { width: 60px; }
 
       <div class="modal-body">
         <div id="payment_request">
-          <p>You can pay now by transferring <span id="amount"></span> BTC to:</p>
-          <h4 id="address"></h4>
-          <div id="qr" style="margin-left: 150px; margin-bottom: 15px;"></div>
+          <p class="lead">Please send <span id="amount"></span> BTC to:</p>
+          <div style="text-align: center">
+            <div id="qr" style="width: 50%; margin: auto;"></div>
+            <h4 id="payment_address"></h4>
+          </div>
         </div>
         <div class="alert alert-success" id="paid" style="display: none">
           <h2>Thanks! Welcome to the co-op!</h2>

@@ -4,9 +4,6 @@ path = require('path')
 engines = require('consolidate')
 request = require('request')
 
-merchants = require("./routes/merchants")
-calculator = require("./routes/calculator")
-
 app = express()
 app.enable('trust proxy')
 app.engine('html', require('mmm').__express)
@@ -31,19 +28,16 @@ do fetchRates = ->
   setTimeout(fetchRates, 120000)
 
 routes =
-  "/": 'index'
-  "/about": 'about'
-  "/directors": 'directors'
-  "/education": 'education'
-  "/coinos": 'coinos'
-  "/exchangers": 'exchangers'
-  "/exchangers/join": 'join'
-  "/membership": 'membership'
-  "/merchants": 'merchants'
-  "/merchants/signup": 'signup'
-  "/contact": 'contact'
-  "/partners": 'partners'
-  "/coinfest": 'coinfest'
+  '/': 'index'
+  '/about': 'about'
+  '/coinfest': 'coinfest'
+  '/coinos': 'coinos'
+  '/contact': 'contact'
+  '/directors': 'directors'
+  '/membership': 'membership'
+  '/merchants': 'merchants'
+  '/partners': 'partners'
+  '/register': 'register'
 
 
 for route, view of routes
@@ -57,25 +51,11 @@ for route, view of routes
     )
   )(route, view)
 
-
-app.get('/bc/*', (req, res) ->
-  res.send(req.path)
-  res.end()
-)
-
-app.get('/merchants2', merchants.list)
-
-app.get('/claim/:id', (req, res) ->
-  account = (i for i in require('./accounts.json').accounts when i.id is req.params.id)[0]
-
-  res.render('claim',
-    js: (-> global.js),
-    css: (-> global.css),
-    layout: 'layout',
-    address: account.address,
-    amount: account.amount,
-    rupees: 500,
-    url: account.link
+app.get('/users', (req, res) ->
+  db = require('./redis')
+  db.keys('member:*', (err, obj) ->
+    res.write(JSON.stringify(obj))
+    res.end()
   )
 )
 
@@ -123,29 +103,26 @@ app.post('/users', (req, res) ->
   )
 )
 
-app.post('/contact', (req, res) ->
-  nodemailer = require("nodemailer")
-  transport = nodemailer.createTransport("Sendmail", "/usr/sbin/sendmail")
+app.get('/ticker', (req, res) ->
+  fs = require('fs')
 
-  mailOptions =
-    from: "The Bitcoin Co-op <info@bitcoincoop.org>",
-    to: "info@bitcoincoop.org",
-    subject: "Contact Form",
-    html: JSON.stringify(req.body)
+  fs.readFile("./public/js/rates.json", (err, data) ->
+    req.query.currency ||= 'CAD'
+    req.query.symbol ||= 'quadrigacx'
+    req.query.type ||= 'bid'
 
-  transport.sendMail(mailOptions, (error, response) ->
-    console.log(error) if(error)
-    smtpTransport.close()
-  )
+    try 
+      exchange = JSON.parse(data)[req.query.currency][req.query.symbol]['rates'][req.query.type].toString()
+    catch e 
+      exchange = "0"
 
-  res.render('thanks',
-    js: (-> global.js),
-    css: (-> global.css),
-    layout: 'layout'
+    res.writeHead(200, 
+      'Content-Length': exchange.length,
+      'Content-Type': 'text/plain')
+    res.write(exchange)
+    res.end()
   )
 )
-
-app.get('/ticker', calculator.ticker)
 
 app.use((err, req, res, next) ->
   res.status(500)

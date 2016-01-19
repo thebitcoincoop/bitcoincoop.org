@@ -1,15 +1,19 @@
 g = this
 $(->
-  $.get('/js/rates.json', (data) ->
-    g.rates = data
+  g.attempts = 0
+  listen()
 
-    price = 0.04 
-    rate = g.rates.CAD.quadrigacx.rates.bid
+  $('form#register').validator()
+  $('#name').focus()
+
+  $.get('/js/rates.json', (data) ->
+    price = 0.05 
+    rate = data.CAD.quadrigacx.rates.bid
     g.amount = parseFloat(price / rate).toFixed(8)
-    g.address = '15dRBzyg68NXRraGQVpa4MgbohyZEFH7sM'
+    g.address = '13zP2yHXd6pMM9cATwRtQcTx7CgZsi6saE'
 
     $('#amount').html(g.amount.toString())
-    $('#address').html(g.address)
+    $('#payment_address').html(g.address)
 
     $('#qr').html('')
     new QRCode('qr', 
@@ -21,35 +25,60 @@ $(->
 
   $('#register').submit((e) ->
     e.preventDefault()
+
+    $('.form-control').blur()
+    if $('#register .has-error').length > 0
+      $('#register .has-error').effect('shake', 500)
+      return
+
     $('#modal').modal()
   )
 
-  setTimeout(listen, 60000) unless g.blockchain
+  $('#qr').click(->
+    url = "bitcoin:#{g.address}?amount=#{g.amount.toString()}"
+    a = document.createElement('a')
+    a.setAttribute('href', url)
+    a.click()
+  )
+
 )
 
 listen = ->
-  unless g.blockchain and g.blockchain.readyState is 1
+  g.attempts++
+  if g.blockchain and g.blockchain.readyState is 1
+    setTimeout(listen, 12000)
+  else
+    fail(SOCKET_FAIL) if g.attempts > 3
     g.blockchain = new WebSocket("wss://ws.blockchain.info/inv")
 
     g.blockchain.onopen = -> 
-      $('#payment_error').hide()
-      $('#payment_request').show()
-      g.blockchain.send('{"op":"addr_sub", "addr":"' + g.address + '"}')
+      if g.blockchain.readyState is 1
+        g.attempts = 0
+        $('#payment_error').hide()
+        $('#payment_request').show()
+        g.blockchain.send('{"op":"addr_sub", "addr":"' + g.address + '"}')
+      else
+        setTimeout(g.blockchain.onopen, 12000 * g.attempts)
     
-    g.blockchain.onerror = (err) ->
+    g.blockchain.onerror =  ->
       $('#payment_request').hide()
       $('#payment_error').show()('<div class="alert alert-error">Error connecting to payment server, try refreshing the page or trying again later.  Please contact info@bitcoincoop.org if the problem persists.</div>')
-      g.blockchain = null
+      g.blockchain.close()
+      delete g.blockchain
+      listen()
 
     g.blockchain.onclose = ->
-      $('#payment_request').html('<div class="alert alert-error">Error connecting to payment server, try refreshing the page or trying again later.  Please contact info@bitcoincoop.org if the problem persists.</div>')
-      g.blockchain = null
+      delete g.blockchain
+      listen()
 
     g.blockchain.onmessage = (e) ->
       results = eval('(' + e.data + ')')
       amount = 0
       txid = results.x.hash
 
+      return if txid == g.last
+      g.last = txid
+      
       $.each(results.x.out, (i, v) ->
         if (v.addr == g.address) 
           amount += v.value / 100000000
