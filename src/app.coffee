@@ -3,6 +3,7 @@ express = require('express')
 path = require('path')
 engines = require('consolidate')
 request = require('request')
+config = require('./config')
 
 app = express()
 app.enable('trust proxy')
@@ -53,9 +54,20 @@ for route, view of routes
 
 app.get('/users', (req, res) ->
   db = require('./redis')
-  db.keys('member:*', (err, obj) ->
-    res.write(JSON.stringify(obj))
-    res.end()
+  db.keys('member:*', (err, keys) ->
+    users = []
+
+    for key, i in keys 
+      do (i, db) ->
+        db.hgetall(key, (err, obj) ->
+          users.push(obj)
+
+          console.log(i)
+          console.log(keys.length)
+          if i >= keys.length - 1
+            res.write(JSON.stringify(users))
+            res.end()
+        )
   )
 )
 
@@ -77,29 +89,36 @@ app.post('/users', (req, res) ->
       )
 
     db.sadd("users",userkey)
-    db.hmset(userkey,
-      name: req.body.name,
-      email: req.body.email,
-      address: req.body.address
+    db.incr('members', (err, number) ->
+      db.hmset(userkey,
+        name: req.body.name,
+        email: req.body.email,
+        address: req.body.address
+        number: number
+        (err, obj) ->
+          if true or process.env.NODE_ENV is 'production'
+            res.render('welcome', 
+              layout: 'mail',
+              js: (-> global.js), 
+              css: (-> global.css),
+              (err, html) ->
+                sendgrid = require('sendgrid')(config.sendgrid_user, config.sendgrid_password)
+
+                email = new sendgrid.Email(
+                  to: req.body.email
+                  from: 'info@bitcoincoop.org'
+                  subject: 'Welcome to the Co-op!'
+                  html: html
+                )
+
+                sendgrid.send(email)
+                console.log(email)
+                console.log(config.sendgrid_user + config.sendgrid_password)
+            )
+
+          res.end()
+        )
     )
-
-    if process.env.NODE_ENV is 'production'
-      res.render('users/welcome', 
-        layout: 'mail',
-        js: (-> global.js), 
-        css: (-> global.css),
-        (err, html) ->
-          sendgrid = require('sendgrid')(config.sendgrid_user, config.sendgrid_password)
-
-          email = new sendgrid.Email(
-            to: req.body.email
-            from: 'everyone@bitcoincoop.org'
-            subject: 'Welcome to the Co-op!'
-            html: html
-          )
-
-          sendgrid.send(email)
-      )
   )
 )
 

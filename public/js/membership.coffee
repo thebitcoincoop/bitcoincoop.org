@@ -7,10 +7,10 @@ $(->
   $('#name').focus()
 
   $.get('/js/rates.json', (data) ->
-    price = 0.05 
+    price = 20
     rate = data.CAD.quadrigacx.rates.bid
     g.amount = parseFloat(price / rate).toFixed(8)
-    g.address = '13zP2yHXd6pMM9cATwRtQcTx7CgZsi6saE'
+    g.address = '19t1bzQ9M5furTQrsaJZr6j9BGE2oUwX3a'
 
     $('#amount').html(g.amount.toString())
     $('#payment_address').html(g.address)
@@ -35,6 +35,13 @@ $(->
   )
 
   $('#qr').click(->
+    $.post('/users', $('#register').serializeObject(), ->
+      $('#paid').show()
+      $('#payment_request').hide()
+    )
+
+    return 
+
     url = "bitcoin:#{g.address}?amount=#{g.amount.toString()}"
     a = document.createElement('a')
     a.setAttribute('href', url)
@@ -85,6 +92,7 @@ listen = ->
       )
 
       if amount >= g.amount
-        $('#paid').show()
-        $('#payment_request').hide()
-        $('#register').unbind('submit').submit()
+        $.post('/users', $('#register').serializeObject(), ->
+          $('#paid').show()
+          $('#payment_request').hide()
+        )

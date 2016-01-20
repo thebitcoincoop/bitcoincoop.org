@@ -2,11 +2,12 @@
 (function() {
   $(function() {
     return $.get('/users', function(data) {
-      var member, _i, _len, _results;
+      var member, _i, _len, _ref, _results;
+      _ref = JSON.parse(data);
       _results = [];
-      for (_i = 0, _len = data.length; _i < _len; _i++) {
-        member = data[_i];
-        _results.push($('#members').append("<tr><td>" + member.number + "</td><td>" + member.name + "</td></tr>"));
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        member = _ref[_i];
+        _results.push($('#members tbody').append("<tr><td>" + member.number + "</td><td>" + member.name + "</td></tr>"));
       }
       return _results;
     });

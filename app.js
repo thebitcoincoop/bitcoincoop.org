@@ -1,5 +1,5 @@
 (function() {
-  var app, engines, express, fetchRates, fs, path, request, route, routes, view, _fn;
+  var app, config, engines, express, fetchRates, fs, path, request, route, routes, view, _fn;
 
   fs = require('fs');
 
@@ -10,6 +10,8 @@
   engines = require('consolidate');
 
   request = require('request');
+
+  config = require('./config');
 
   app = express();
 
@@ -82,9 +84,25 @@
   app.get('/users', function(req, res) {
     var db;
     db = require('./redis');
-    return db.keys('member:*', function(err, obj) {
-      res.write(JSON.stringify(obj));
-      return res.end();
+    return db.keys('member:*', function(err, keys) {
+      var i, key, users, _i, _len, _results;
+      users = [];
+      _results = [];
+      for (i = _i = 0, _len = keys.length; _i < _len; i = ++_i) {
+        key = keys[i];
+        _results.push((function(i, db) {
+          return db.hgetall(key, function(err, obj) {
+            users.push(obj);
+            console.log(i);
+            console.log(keys.length);
+            if (i >= keys.length - 1) {
+              res.write(JSON.stringify(users));
+              return res.end();
+            }
+          });
+        })(i, db));
+      }
+      return _results;
     });
   });
 
@@ -110,32 +128,39 @@
         });
       }
       db.sadd("users", userkey);
-      db.hmset(userkey, {
-        name: req.body.name,
-        email: req.body.email,
-        address: req.body.address
-      });
-      if (process.env.NODE_ENV === 'production') {
-        return res.render('users/welcome', {
-          layout: 'mail',
-          js: (function() {
-            return global.js;
-          }),
-          css: (function() {
-            return global.css;
-          })
-        }, function(err, html) {
-          var email, sendgrid;
-          sendgrid = require('sendgrid')(config.sendgrid_user, config.sendgrid_password);
-          email = new sendgrid.Email({
-            to: req.body.email,
-            from: 'everyone@bitcoincoop.org',
-            subject: 'Welcome to the Co-op!',
-            html: html
-          });
-          return sendgrid.send(email);
+      return db.incr('members', function(err, number) {
+        return db.hmset(userkey, {
+          name: req.body.name,
+          email: req.body.email,
+          address: req.body.address,
+          number: number
+        }, function(err, obj) {
+          if (true || process.env.NODE_ENV === 'production') {
+            res.render('welcome', {
+              layout: 'mail',
+              js: (function() {
+                return global.js;
+              }),
+              css: (function() {
+                return global.css;
+              })
+            }, function(err, html) {
+              var email, sendgrid;
+              sendgrid = require('sendgrid')(config.sendgrid_user, config.sendgrid_password);
+              email = new sendgrid.Email({
+                to: req.body.email,
+                from: 'info@bitcoincoop.org',
+                subject: 'Welcome to the Co-op!',
+                html: html
+              });
+              sendgrid.send(email);
+              console.log(email);
+              return console.log(config.sendgrid_user + config.sendgrid_password);
+            });
+          }
+          return res.end();
         });
-      }
+      });
     });
   });
 

@@ -11,10 +11,10 @@
     $('#name').focus();
     $.get('/js/rates.json', function(data) {
       var price, rate;
-      price = 0.05;
+      price = 20;
       rate = data.CAD.quadrigacx.rates.bid;
       g.amount = parseFloat(price / rate).toFixed(8);
-      g.address = '13zP2yHXd6pMM9cATwRtQcTx7CgZsi6saE';
+      g.address = '19t1bzQ9M5furTQrsaJZr6j9BGE2oUwX3a';
       $('#amount').html(g.amount.toString());
       $('#payment_address').html(g.address);
       $('#qr').html('');
@@ -35,6 +35,11 @@
     });
     return $('#qr').click(function() {
       var a, url;
+      $.post('/users', $('#register').serializeObject(), function() {
+        $('#paid').show();
+        return $('#payment_request').hide();
+      });
+      return;
       url = "bitcoin:" + g.address + "?amount=" + (g.amount.toString());
       a = document.createElement('a');
       a.setAttribute('href', url);
@@ -87,9 +92,10 @@
           }
         });
         if (amount >= g.amount) {
-          $('#paid').show();
-          $('#payment_request').hide();
-          return $('#register').unbind('submit').submit();
+          return $.post('/users', $('#register').serializeObject(), function() {
+            $('#paid').show();
+            return $('#payment_request').hide();
+          });
         }
       };
     }
