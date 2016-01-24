@@ -11,7 +11,6 @@ app.engine('html', require('mmm').__express)
 app.set('view engine', 'html')
 app.set('views', __dirname + '/views')
 app.use(express.static(__dirname + '/public'))
-app.use(require('connect-assets')(src: 'public'))
 app.use(express.bodyParser())
 app.use(express.cookieParser())
 app.use(app.router)
@@ -62,9 +61,12 @@ app.get('/users', (req, res) ->
         db.hgetall(key, (err, obj) ->
           users.push(obj)
 
-          console.log(i)
-          console.log(keys.length)
           if i >= keys.length - 1
+            users.sort((a,b) -> 
+              return -1 if a.number < b.number
+              return 1 if a.number > b.number
+              return 0
+            )
             res.write(JSON.stringify(users))
             res.end()
         )
@@ -74,19 +76,12 @@ app.get('/users', (req, res) ->
 app.post('/users', (req, res) ->
   db = require('./redis')
 
-  errormsg = ""
   userkey = "member:"+req.body.email
   db.hgetall(userkey, (err, obj) ->
-    if obj
-      errormsg += "Sorry, that email address is already registered"
 
-    if errormsg
-      return res.render('membership',
-        layout: 'layout',
-        js: (-> global.js), 
-        css: (-> global.css),
-        error: errormsg
-      )
+    if obj
+      res.status(500).send("Sorry, that email address is already registered")
+      return
 
     db.sadd("users",userkey)
     db.incr('members', (err, number) ->
@@ -97,6 +92,7 @@ app.post('/users', (req, res) ->
         number: number
         (err, obj) ->
           if true or process.env.NODE_ENV is 'production'
+            email = req.body.email
             res.render('welcome', 
               layout: 'mail',
               js: (-> global.js), 
@@ -105,15 +101,13 @@ app.post('/users', (req, res) ->
                 sendgrid = require('sendgrid')(config.sendgrid_user, config.sendgrid_password)
 
                 email = new sendgrid.Email(
-                  to: req.body.email
+                  to: email
                   from: 'info@bitcoincoop.org'
                   subject: 'Welcome to the Co-op!'
                   html: html
                 )
 
                 sendgrid.send(email)
-                console.log(email)
-                console.log(config.sendgrid_user + config.sendgrid_password)
             )
 
           res.end()

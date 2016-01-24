@@ -35,12 +35,11 @@ $(->
   )
 
   $('#qr').click(->
-    $.post('/users', $('#register').serializeObject(), ->
-      $('#paid').show()
-      $('#payment_request').hide()
-    )
-
-    return 
+    # $.post('/users', $('#register').serializeObject(), ->
+    #  $('#paid').show()
+    #  $('#payment_request').hide()
+    # )
+    # return 
 
     url = "bitcoin:#{g.address}?amount=#{g.amount.toString()}"
     a = document.createElement('a')

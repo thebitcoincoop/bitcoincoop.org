@@ -25,10 +25,6 @@
 
   app.use(express["static"](__dirname + '/public'));
 
-  app.use(require('connect-assets')({
-    src: 'public'
-  }));
-
   app.use(express.bodyParser());
 
   app.use(express.cookieParser());
@@ -93,9 +89,16 @@
         _results.push((function(i, db) {
           return db.hgetall(key, function(err, obj) {
             users.push(obj);
-            console.log(i);
-            console.log(keys.length);
             if (i >= keys.length - 1) {
+              users.sort(function(a, b) {
+                if (a.number < b.number) {
+                  return -1;
+                }
+                if (a.number > b.number) {
+                  return 1;
+                }
+                return 0;
+              });
               res.write(JSON.stringify(users));
               return res.end();
             }
@@ -107,25 +110,13 @@
   });
 
   app.post('/users', function(req, res) {
-    var db, errormsg, userkey;
+    var db, userkey;
     db = require('./redis');
-    errormsg = "";
     userkey = "member:" + req.body.email;
     return db.hgetall(userkey, function(err, obj) {
       if (obj) {
-        errormsg += "Sorry, that email address is already registered";
-      }
-      if (errormsg) {
-        return res.render('membership', {
-          layout: 'layout',
-          js: (function() {
-            return global.js;
-          }),
-          css: (function() {
-            return global.css;
-          }),
-          error: errormsg
-        });
+        res.status(500).send("Sorry, that email address is already registered");
+        return;
       }
       db.sadd("users", userkey);
       return db.incr('members', function(err, number) {
@@ -135,7 +126,9 @@
           address: req.body.address,
           number: number
         }, function(err, obj) {
+          var email;
           if (true || process.env.NODE_ENV === 'production') {
+            email = req.body.email;
             res.render('welcome', {
               layout: 'mail',
               js: (function() {
@@ -145,17 +138,15 @@
                 return global.css;
               })
             }, function(err, html) {
-              var email, sendgrid;
+              var sendgrid;
               sendgrid = require('sendgrid')(config.sendgrid_user, config.sendgrid_password);
               email = new sendgrid.Email({
-                to: req.body.email,
+                to: email,
                 from: 'info@bitcoincoop.org',
                 subject: 'Welcome to the Co-op!',
                 html: html
               });
-              sendgrid.send(email);
-              console.log(email);
-              return console.log(config.sendgrid_user + config.sendgrid_password);
+              return sendgrid.send(email);
             });
           }
           return res.end();

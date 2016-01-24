@@ -35,11 +35,6 @@
     });
     return $('#qr').click(function() {
       var a, url;
-      $.post('/users', $('#register').serializeObject(), function() {
-        $('#paid').show();
-        return $('#payment_request').hide();
-      });
-      return;
       url = "bitcoin:" + g.address + "?amount=" + (g.amount.toString());
       a = document.createElement('a');
       a.setAttribute('href', url);
