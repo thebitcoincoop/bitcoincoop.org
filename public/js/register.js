@@ -7,7 +7,7 @@
       _results = [];
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
         member = _ref[_i];
-        _results.push($('#members tbody').append("<tr>\n  <td>" + member.number + "</td>\n  <td>" + member.name + "</td>\n  <td>" + (moment(member.date, 'MMMM Do YYYY, h:mm:ss a').format('lll')) + "</td>\n  <td><a href='https://tradeblock.com/bitcoin/tx/" + member.txid + "'>" + (member.txid.substr(0, 5)) + "...</a></td>\n</tr>"));
+        _results.push($('#members tbody').append("<tr>\n  <td>" + member.number + "</td>\n  <td>" + member.name + "</td>\n  <td>" + (moment(member.date, 'MMMM Do YYYY, h:mm:ss a').format('lll')) + "</td>\n  <td><a href='https://tradeblock.com/bitcoin/tx/" + member.txid + "' target='_blank'>" + (member.txid.substr(0, 10)) + "...</a></td>\n</tr>"));
       }
       return _results;
     });
