@@ -42,9 +42,7 @@ $(->
     # return 
 
     url = "bitcoin:#{g.address}?amount=#{g.amount.toString()}"
-    a = document.createElement('a')
-    a.setAttribute('href', url)
-    a.click()
+    $('<a></a>').attr('href', url).click() 
   )
 
 )
@@ -81,6 +79,7 @@ listen = ->
       results = eval('(' + e.data + ')')
       amount = 0
       txid = results.x.hash
+      $('#txid').val(txid)
 
       return if txid == g.last
       g.last = txid
@@ -91,6 +90,8 @@ listen = ->
       )
 
       if amount >= g.amount
+        $('#date').val(moment().format('MMMM Do YYYY, h:mm:ss a'))
+
         $.post('/users', $('#register').serializeObject(), ->
           $('#paid').show()
           $('#payment_request').hide()

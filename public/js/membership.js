@@ -34,11 +34,9 @@
       return $('#modal').modal();
     });
     return $('#qr').click(function() {
-      var a, url;
+      var url;
       url = "bitcoin:" + g.address + "?amount=" + (g.amount.toString());
-      a = document.createElement('a');
-      a.setAttribute('href', url);
-      return a.click();
+      return $('<a></a>').attr('href', url).click();
     });
   });
 
@@ -77,6 +75,7 @@
         results = eval('(' + e.data + ')');
         amount = 0;
         txid = results.x.hash;
+        $('#txid').val(txid);
         if (txid === g.last) {
           return;
         }
@@ -87,6 +86,7 @@
           }
         });
         if (amount >= g.amount) {
+          $('#date').val(moment().format('MMMM Do YYYY, h:mm:ss a'));
           return $.post('/users', $('#register').serializeObject(), function() {
             $('#paid').show();
             return $('#payment_request').hide();

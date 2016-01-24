@@ -87,8 +87,8 @@
       for (i = _i = 0, _len = keys.length; _i < _len; i = ++_i) {
         key = keys[i];
         _results.push((function(i, db) {
-          return db.hgetall(key, function(err, obj) {
-            users.push(obj);
+          return db.hgetall(key, function(err, user) {
+            users.push(user);
             if (i >= keys.length - 1) {
               users.sort(function(a, b) {
                 if (a.number < b.number) {
@@ -124,7 +124,9 @@
           name: req.body.name,
           email: req.body.email,
           address: req.body.address,
-          number: number
+          number: number,
+          date: req.body.date,
+          txid: req.body.txid
         }, function(err, obj) {
           var email;
           if (true || process.env.NODE_ENV === 'production') {

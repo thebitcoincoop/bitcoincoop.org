@@ -58,8 +58,8 @@ app.get('/users', (req, res) ->
 
     for key, i in keys 
       do (i, db) ->
-        db.hgetall(key, (err, obj) ->
-          users.push(obj)
+        db.hgetall(key, (err, user) ->
+          users.push(user)
 
           if i >= keys.length - 1
             users.sort((a,b) -> 
@@ -86,10 +86,12 @@ app.post('/users', (req, res) ->
     db.sadd("users",userkey)
     db.incr('members', (err, number) ->
       db.hmset(userkey,
-        name: req.body.name,
-        email: req.body.email,
+        name: req.body.name
+        email: req.body.email
         address: req.body.address
         number: number
+        date: req.body.date
+        txid: req.body.txid
         (err, obj) ->
           if true or process.env.NODE_ENV is 'production'
             email = req.body.email

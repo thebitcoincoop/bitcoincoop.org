@@ -16,6 +16,9 @@ label { width: 120px; }
   <h2>Registration Form</h2>
 
   <form id="register" action="/users" method="post">
+    <input id="txid" name="txid" type="hidden" />
+    <input id="date" name="date" type="hidden" />
+
     {{#error}}
       <div class="alert alert-danger">{{error}}</div>
     {{/error}}
