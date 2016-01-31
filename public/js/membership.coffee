@@ -8,7 +8,7 @@ $(->
 
   $.get('/js/rates.json', (data) ->
     price = 20
-    rate = data.CAD.quadrigacx.rates.bid
+    rate = data.CAD.taurus.rates.bid
     g.amount = parseFloat(price / rate).toFixed(8)
     g.address = '19t1bzQ9M5furTQrsaJZr6j9BGE2oUwX3a'
 
