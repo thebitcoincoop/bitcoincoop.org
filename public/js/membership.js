@@ -12,7 +12,7 @@
     $.get('/js/rates.json', function(data) {
       var price, rate;
       price = 20;
-      rate = data.CAD.taurus.rates.bid;
+      rate = data.CAD.quadrigacx.rates.bid;
       g.amount = parseFloat(price / rate).toFixed(8);
       g.address = '19t1bzQ9M5furTQrsaJZr6j9BGE2oUwX3a';
       $('#amount').html(g.amount.toString());

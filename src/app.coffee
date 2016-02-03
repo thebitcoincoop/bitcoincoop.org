@@ -123,7 +123,7 @@ app.get('/ticker', (req, res) ->
 
   fs.readFile("./public/js/rates.json", (err, data) ->
     req.query.currency ||= 'CAD'
-    req.query.symbol ||= 'taurus'
+    req.query.symbol ||= 'quadrigacx'
     req.query.type ||= 'bid'
 
     try 
