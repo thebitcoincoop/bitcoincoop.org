@@ -59,7 +59,8 @@ app.get('/users', (req, res) ->
     for key, i in keys 
       do (i, db) ->
         db.hgetall(key, (err, user) ->
-          users.push(user)
+          unless user.private
+            users.push(user)
 
           if i >= keys.length - 1
             users.sort((a,b) -> 

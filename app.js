@@ -88,7 +88,9 @@
         key = keys[i];
         _results.push((function(i, db) {
           return db.hgetall(key, function(err, user) {
-            users.push(user);
+            if (!user["private"]) {
+              users.push(user);
+            }
             if (i >= keys.length - 1) {
               users.sort(function(a, b) {
                 if (a.number < b.number) {
