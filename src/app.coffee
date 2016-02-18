@@ -64,8 +64,8 @@ app.get('/users', (req, res) ->
 
           if i >= keys.length - 1
             users.sort((a,b) -> 
-              return -1 if a.number < b.number
-              return 1 if a.number > b.number
+              return -1 if parseInt(a.number) < parseInt(b.number)
+              return 1 if parseInt(a.number) > parseInt(b.number)
               return 0
             )
             res.write(JSON.stringify(users))
@@ -122,7 +122,7 @@ app.post('/users', (req, res) ->
 app.get('/ticker', (req, res) ->
   fs = require('fs')
 
-  fs.readFile("./public/js/rates.json", (err, data) ->
+  fd = fs.readFile("./public/js/rates.json", (err, data) ->
     req.query.currency ||= 'CAD'
     req.query.symbol ||= 'quadrigacx'
     req.query.type ||= 'bid'

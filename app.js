@@ -93,10 +93,10 @@
             }
             if (i >= keys.length - 1) {
               users.sort(function(a, b) {
-                if (a.number < b.number) {
+                if (parseInt(a.number) < parseInt(b.number)) {
                   return -1;
                 }
-                if (a.number > b.number) {
+                if (parseInt(a.number) > parseInt(b.number)) {
                   return 1;
                 }
                 return 0;
@@ -160,8 +160,9 @@
   });
 
   app.get('/ticker', function(req, res) {
+    var fd;
     fs = require('fs');
-    return fs.readFile("./public/js/rates.json", function(err, data) {
+    return fd = fs.readFile("./public/js/rates.json", function(err, data) {
       var e, exchange, _base, _base1, _base2;
       (_base = req.query).currency || (_base.currency = 'CAD');
       (_base1 = req.query).symbol || (_base1.symbol = 'quadrigacx');
