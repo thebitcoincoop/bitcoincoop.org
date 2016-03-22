@@ -10,7 +10,7 @@ $(->
     price = 20
     rate = data.CAD.quadrigacx.rates.bid
     g.amount = parseFloat(price / rate).toFixed(8)
-    g.address = '19t1bzQ9M5furTQrsaJZr6j9BGE2oUwX3a'
+    g.address = '37dAD5j5D8Z4mskdujeFNXuPMfeVBDF2qB'
 
     $('#amount').html(g.amount.toString())
     $('#payment_address').html(g.address)
