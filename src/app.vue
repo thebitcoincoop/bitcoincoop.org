@@ -1,6 +1,10 @@
 <template lang="pug">
-  div
-    router-view
+  #wrap
+    #main.container.clear-top
+      .row
+        router-link(to='/')
+          img(src='/static/img/logo.png', style='width: 300px; margin-bottom: 10px; margin-top: 20px;', alt='')
+      router-view
 </template>
 
 <script>
