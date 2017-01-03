@@ -15,15 +15,15 @@
           a(href='http://bcca.coop/content/principles') Co-op Principles
           | . Members can attend our meetings, vote on resolutions, participate in elections of our board of directors and have a say in how we prioritize our projects and manage our finances. Come to our next meeting or event to get to know us and learn how you can get involved!
         p
-          a(href='directors')
+          router-link(to='directors')
             i.icon.icon-list.icon-large
             |  Directors
           | &nbsp;
-          a(href='bylaws.pdf')
+          a(href='/static/bylaws.pdf')
             i.icon.icon-file.icon-large
             |  Bylaws
           | &nbsp;
-          a(href='memorandum.pdf')
+          a(href='/static/memorandum.pdf')
             i.icon.icon-file.icon-large
             |  Memorandum of Association
       .span4

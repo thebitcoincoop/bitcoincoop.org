@@ -5,12 +5,14 @@ import VueRouter from 'vue-router'
 import app from './app'
 import home from './components/home'
 import membership from './components/membership'
+import register from './components/register'
 import directors from './components/directors'
 
 const routes = [
   { path: '/', component: home },
   { path: '/home', component: home },
   { path: '/membership', component: membership },
+  { path: '/register', component: register },
   { path: '/directors', component: directors }
 ]
 

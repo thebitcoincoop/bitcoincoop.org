@@ -59,6 +59,74 @@ app.use(hotMiddleware)
 var staticPath = path.posix.join(config.dev.assetsPublicPath, config.dev.assetsSubDirectory)
 app.use(staticPath, express.static('./static'))
 
+app.get('/users', (req, res) ->
+  db = require('./redis')
+  db.keys('member:*', (err, keys) ->
+    users = []
+
+    for key, i in keys 
+      do (i, db) ->
+        db.hgetall(key, (err, user) ->
+          unless user.private
+            users.push(user)
+
+          if i >= keys.length - 1
+            users.sort((a,b) -> 
+              return -1 if parseInt(a.number) < parseInt(b.number)
+              return 1 if parseInt(a.number) > parseInt(b.number)
+              return 0
+            )
+            res.write(JSON.stringify(users))
+            res.end()
+        )
+  )
+)
+
+app.post('/users', (req, res) ->
+  db = require('./redis')
+
+  userkey = "member:"+req.body.email
+  db.hgetall(userkey, (err, obj) ->
+
+    if obj
+      res.status(500).send("Sorry, that email address is already registered")
+      return
+
+    db.sadd("users",userkey)
+    db.incr('members', (err, number) ->
+      db.hmset(userkey,
+        name: req.body.name
+        email: req.body.email
+        address: req.body.address
+        number: number
+        date: req.body.date
+        txid: req.body.txid
+        (err, obj) ->
+          if true or process.env.NODE_ENV is 'production'
+            email = req.body.email
+            res.render('welcome', 
+              layout: 'mail',
+              js: (-> global.js), 
+              css: (-> global.css),
+              (err, html) ->
+                sendgrid = require('sendgrid')(config.sendgrid_user, config.sendgrid_password)
+
+                email = new sendgrid.Email(
+                  to: email
+                  from: 'info@bitcoincoop.org'
+                  subject: 'Welcome to the Co-op!'
+                  html: html
+                )
+
+                sendgrid.send(email)
+            )
+
+          res.end()
+        )
+    )
+  )
+)
+
 module.exports = app.listen(port, function (err) {
   if (err) {
     console.log(err)

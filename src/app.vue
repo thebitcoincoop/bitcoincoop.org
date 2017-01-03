@@ -10,12 +10,14 @@
 <script>
 import home from './components/home'
 import membership from './components/membership'
+import register from './components/register'
 
 export default {
   name: 'app',
   components: {
     home,
-    membership
+    membership,
+    register
   }
 }
 </script>
