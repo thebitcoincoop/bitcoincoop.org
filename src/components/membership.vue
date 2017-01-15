@@ -2,12 +2,12 @@
   div
     h1 Membership
     p
-      | Membership is open to any person or organization who shares our values and wants to participate in our activities, subject to the approval of our democratically elected 
+      | Membership is open to any person or organization who shares our values and wants to participate in our activities, subject to the approval of our elected 
       router-link(to='directors') Board of Directors
       | . To become a member, fill out the following form and send payment to the address provided. The fee is $20, payable in Bitcoin.
     p
       | After signing up, you&apos;ll be given a member number and recorded in our 
-      router-link(to='register') register
+      router-link(to='register') Membership Register
       | . We&apos;ll invite you to attend our Annual General Meetings where you&apos;ll be able to vote on resolutions as well as nominate and elect directors. You can find more information about co-operatives by visiting the 
       a(href='http://bcca.coop/') British Columbia Co-operative Association
       |  and reading the 
@@ -29,8 +29,8 @@
           input#name.form-control(type='text', name='name', required='')
           |  
           span
-            | (Published in our 
-            a(tabindex='-1', href='/register') register
+            | (Published in our public 
+            router-link(to='register') Membership Register
             | )
         .form-group
           label(for='email') Email Address:
@@ -46,24 +46,6 @@
           span (Not published)
         |  
         input.btn.btn-primary(type='submit', value='Become a Member')
-    #modal.modal.fade(tabindex='-1', role='dialog')
-      .modal-dialog
-        .modal-content
-          .modal-header
-            button.close(type='button', data-dismiss='modal')
-              span(aria-hidden='true') &times;
-            h4.modal-title Payment
-          .modal-body
-            #payment_request
-              p.lead
-                | Please send
-                span#amount
-                |  BTC to:
-              div(style='text-align: center')
-                #qr(style='width: 50%; margin: auto;')
-                h4#payment_address
-            #paid.alert.alert-success(style='display: none')
-              h3 Success! Welcome to the co-op!
 </template>
 
 <style lang="stylus">
@@ -73,3 +55,14 @@
   #qr 
     cursor pointer
 </style>
+
+<script>
+  import PaymentDialog from './PaymentDialog'
+
+  export default {
+    name: 'membership',
+    components: {
+      PaymentDialog
+    }
+  }
+</script>

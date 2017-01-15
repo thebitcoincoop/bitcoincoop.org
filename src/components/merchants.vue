@@ -1,10 +1,10 @@
+<template>
 <h1>Merchants</h1>
 
 <p>
 A growing number of businesses are accepting bitcoin for payment.  Why wouldn't they, when it's cheaper than other electronic payment methods and exposes them to an enthusiastic market of technologists and idealists who are eager to spend their bitcoins in the local economy?  We proudly support the following merchants by promoting them through our network, consulting with them on payment solutions, and hosting events and meetups at their venues.
 </p>
 
-<!-- 
 <div  class="masonry js-masonry"  data-masonry-options='{ "columnWidth": 550 }'>
   <div class="item">
     <a href="http://pacificblissmassage.com/"><img src="/img/pacific_bliss.gif" alt="Pacific Bliss" /></a>
@@ -408,6 +408,5 @@ It will appeal to a select segment of readers in the astrological community and 
     <br />
     <input type="submit" value="Submit" />
 </form>
--->
-<iframe src="http://bitcoinmaps.info/" height="500" width="100%" seamless marginheight="0" marginwidth="0" frameBorder="0"></iframe>
 <p style="text-align: right;">Powered by <a href="http://bitcoinmaps.info/" target="_blank">bitcoinmaps.info</a>. <a href="http://bitcoinmaps.info/#add_place" target="_blank">Add your business</a>.</p>
+</template>

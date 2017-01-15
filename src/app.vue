@@ -23,6 +23,9 @@ export default {
 </script>
 
 <style lang="stylus">
+  body
+    font-family "Open Sans",Helvetica,Arial,sans-serif
+
   .hero-unit
     margin-top 10px
     background url(/static/img/vancouver.jpg)
@@ -150,8 +153,7 @@ export default {
     h2 
       clear both
 
-  img
-    float right
+  .clear-top img
     max-height 200px
     margin-left 40px
     margin-bottom 40px

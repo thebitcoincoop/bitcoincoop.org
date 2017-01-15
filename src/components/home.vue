@@ -2,7 +2,7 @@
   div
     .hero-unit
       p
-        | We&apos;re an inclusive association of individuals united by a shared interest in Bitcoin. We organize presentations, workshops and other creative outings to build community and share knowledge about technology, finance, and economics. We support businesses that accept bitcoin payments and negotiate discounts and promotions for our members.
+        | We're an inclusive association of individuals united by a shared interest in Bitcoin. We organize presentations, workshops and other creative outings to build community and share knowledge about technology, finance, and economics. We support businesses that accept bitcoin payments and negotiate discounts and promotions for our members.
       |  
       router-link.btn.btn-large.btn-success(to='membership', style='background: #258AA5') Click Here to Join Us
     .row
@@ -12,7 +12,7 @@
           |  About Us
         p
           | The Bitcoin Co-op was established in 2012 by regular attendees of the Bitcoin Vancouver Meetup group. As a registered co-operative association in the province of British Columbia, we have an open membership structure and adhere to the 
-          a(href='http://bcca.coop/content/principles') Co-op Principles
+          a(href='http://bcca.coop/content/principles', target='_blank') Co-op Principles
           | . Members can attend our meetings, vote on resolutions, participate in elections of our board of directors and have a say in how we prioritize our projects and manage our finances. Come to our next meeting or event to get to know us and learn how you can get involved!
         p
           router-link(to='directors')
@@ -25,13 +25,13 @@
           | &nbsp;
           a(href='/static/memorandum.pdf')
             i.icon.icon-file.icon-large
-            |  Memorandum of Association
+            |  Memorandum
       .span4
         h3
           i.icon-calendar
           |  Meetings
         p
-          | Our Annual General Meeting for 2016 is scheduled for 6pm-8pm on Wednesday, February 17th at 436 West Pender Street. The AGM is open to all registered members of the co-operative.
+          | We have an Annual General Meeting each year in which we elect directors and review our organizational priorities and finances.  The AGM is open to all members of the co-op.
         p
           | For a list of our other informal meetups and events that are open to the public, visit the 
           a(rel='external', href='http://www.meetup.com/bitcoinvan/') Bitcoin Vancouver
