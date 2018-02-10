@@ -52,7 +52,6 @@
     '/coinfest': 'coinfest',
     '/coinos': 'coinos',
     '/contact': 'contact',
-    '/directors': 'directors',
     '/membership': 'membership',
     '/merchants': 'merchants',
     '/partners': 'partners',

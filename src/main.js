@@ -6,16 +6,12 @@ import app from './app'
 import home from './components/home'
 import membership from './components/membership'
 import register from './components/register'
-import directors from './components/directors'
-import coinos from './components/coinos'
 
 const routes = [
   { path: '/', component: home },
   { path: '/home', component: home },
   { path: '/membership', component: membership },
   { path: '/register', component: register },
-  { path: '/directors', component: directors },
-  { path: '/coinos', component: coinos }
 ]
 
 const router = new VueRouter({
