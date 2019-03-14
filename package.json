@@ -1,7 +1,7 @@
 {
-  "name": "pops",
+  "name": "bitcoincoop",
   "version": "1.0.0",
-  "description": "POPs Toolkit",
+  "description": "The Bitcoin Co-op Website",
   "author": "Adam Soltys <asoltys@gmail.com>",
   "private": true,
   "scripts": {
