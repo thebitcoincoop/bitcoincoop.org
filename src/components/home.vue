@@ -14,14 +14,6 @@
         
         p As a registered co-operative association in the province of British Columbia, we have an open membership structure and adhere to the 
           a(href='http://bcca.coop/content/principles', target='_blank') Co-op Principles
-        p
-          a(href='/static/bylaws.pdf')
-            i.icon.icon-file.icon-large
-            |  Bylaws
-          | &nbsp;
-          a(href='/static/memorandum.pdf')
-            i.icon.icon-file.icon-large
-            |  Memorandum
       .span4
         h3
           i.icon-calendar
